@@ -1,5 +1,13 @@
+# -*- coding: UTF8 -*-
+
 from django.db import models
 
+#imports lib´s
+import os
+import uuid
+
+
+#choices list´s
 STATE_CHOICES = [     
     (1,'active'),
     (0,'inactive'),
@@ -12,21 +20,39 @@ PHONE_CHOICES = [
     (3,'whatsapp'),
 ]
 
-def category_path(instance, filename): 
-    print(instance)
-	return 'category_{0}/{1}'.format(instance.id, filename) 
+DAYS_CHOICES = [     
+    (0,'N/A'),
+    (1,'Lunes'),
+    (2,'Martes'),
+    (3,'Miercoles'),
+    (4,'Jueves'),
+    (5,'Viernes'),
+    (6,'Sabado'),
+    (5,'Domingo'),
+    (6,'Todos los días'),
+]
+
+#functions util´s
+def category_path(instance, filename):     
+    UUID = str(uuid.uuid1()).replace("-", "")
+    file_extension = os.path.splitext(filename)    
+    filename = UUID + str(file_extension[1])
+    return 'images/categories/{0}'.format(filename) 
 
 def product_path(instance, filename): 
-    print(instance)
-	return 'product_{0}/{1}'.format(instance.id, filename) 
+    UUID = str(uuid.uuid1()).replace("-", "")
+    file_extension = os.path.splitext(filename)
+    filename = UUID + str(file_extension[1])
+    return 'images/products/{0}'.format(filename) 
 
 
+# Classes for models
 class Category(models.Model):
     code = models.CharField(max_length=20)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, blank=True, null=True)
     state = models.IntegerField(default=1, choices=STATE_CHOICES)
-    image = models.ImageField(upload_to=category_path, height_field=50, width_field=50, max_length=250, blank=True, null=True)
+    image = models.ImageField(upload_to=category_path, blank=True, null=True)
     
     def __str__(self):
         return self.name
@@ -35,7 +61,18 @@ class Telephone(models.Model):
     type_telephone = models.IntegerField(default=1, choices=PHONE_CHOICES)
     number = models.CharField(max_length=150)
     first = models.BooleanField(default=False)
-    market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.SET_DEFAULT)
+    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.type_telephone + " - " + self.number
+    
+class Schedule(models.Model):
+    day = models.IntegerField(default=1, choices=DAYS_CHOICES)
+    start_hour = models.TimeField(auto_now=False, auto_now_add=False)
+    end_hour = models.TimeField(auto_now=False, auto_now_add=False)
+    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.type_telephone + " - " + self.number
@@ -47,6 +84,8 @@ class Market(models.Model):
     longitude = models.FloatField()
     city = models.CharField(max_length=150)
     minimun_price = models.FloatField()
+    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    creation_date = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     categories = models.ManyToManyField('Category')
     products = models.ManyToManyField('Product')
     
@@ -58,7 +97,7 @@ class Product(models.Model):
     description = models.CharField(max_length=300, blank=True, null=True)
     size = models.CharField(max_length=50)
     price = models.FloatField(default=0)
-    image = models.ImageField(upload_to=product_path, height_field=50, width_field=50, max_length=250)
+    image = models.ImageField(upload_to=product_path, blank=True, null=True)
     categories = models.ManyToManyField('Category')
     
     def __str__(self):

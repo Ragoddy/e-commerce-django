@@ -1,0 +1,13 @@
+#Python compiled files
+*.pyc
+
+#PyCharm stuff
+.idea/
+
+#vscode stuff
+.vscode/
+
+#Development database
+db.sqlite3
+*.db
+media/

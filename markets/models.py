@@ -48,7 +48,7 @@ def product_path(instance, filename):
 
 # Classes for models
 class Category(models.Model):
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=20, unique=True, null=True)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, blank=True, null=True)
     state = models.IntegerField(default=1, choices=STATE_CHOICES)
@@ -78,6 +78,7 @@ class Schedule(models.Model):
         return self.type_telephone + " - " + self.number
 
 class Market(models.Model):    
+    code = models.CharField(max_length=20, unique=True, null=True)
     name = models.CharField(max_length=200)
     addresses = models.CharField(max_length=200)
     latitude = models.FloatField()

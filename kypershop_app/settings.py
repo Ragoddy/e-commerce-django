@@ -66,6 +66,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'drf_yasg',
 ]
 
 #local App´s
@@ -105,6 +106,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kypershop_app.wsgi.application'
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

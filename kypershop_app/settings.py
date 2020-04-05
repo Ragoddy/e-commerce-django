@@ -66,7 +66,9 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework_gis',
     'drf_yasg',
+    'django.contrib.gis',
 ]
 
 #local App´s
@@ -108,7 +110,7 @@ WSGI_APPLICATION = 'kypershop_app.wsgi.application'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 }
 
 # Database
@@ -116,7 +118,7 @@ REST_FRAMEWORK = {
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'kypershop_db',
         'USER': 'user_db',
         'PASSWORD': 'kypershop2020$$',

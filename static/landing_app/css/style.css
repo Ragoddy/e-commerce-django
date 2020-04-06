@@ -19,7 +19,7 @@ html {
 }
 
 .download-btn-first:hover {
-  background: #234197;
+  background: #e75a27;
   color: #fff !important;
 }
 
@@ -29,7 +29,7 @@ html {
 
 .features-btn-first:hover {
   background: #f7f7f7 !important;
-  color: #234197 !important;
+  color: #e75a27 !important;
 }
 
 #fh5co-hero-wrapper {
@@ -55,7 +55,7 @@ html {
   opacity: .7;
 }
 .main-navbar-nav .navbar-nav .nav-item a:hover {
-  color: #234197 !important;
+  color: #e75a27 !important;
   -webkit-transition: all .33s ease;
   -moz-transition: all .33s ease;
   -o-transition: all .33s ease;
@@ -101,8 +101,8 @@ html {
   letter-spacing: 2px;
 }
 .fh5co-hero-inner > p {
-  width: 400px;
-  font-size: 14px;
+  width: 600px;
+  font-size: 19px;
   color: #fff;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -112,20 +112,20 @@ html {
   font-size: 15px;
   padding: 10px 15px;
   font-weight: 700;
-  color: #234197;
+  color: #e75a27;
 }
 .fh5co-hero-inner .features-btn-first {
   font-size: 15px;
   padding: 8px 13px;
   font-weight: 400;
-  background: #234197;
+  background: #e75a27;
   color: #fff;
   margin-left: 10px;
 }
 .fh5co-hero-inner .fh5co-hero-smartphone {
   position: absolute;
   right: 0px;
-  top: 120px;
+  top: 125px;
   height: 650px;
 }
 
@@ -137,9 +137,10 @@ html {
   height: auto;
   width: 100%;
   overflow: hidden;
+  margin-top: 3rem;
 }
 .fh5co-advantages-outer .span-perfect {
-  color: #648cff;
+  color: #e75a27;
   text-transform: uppercase;
   font-size: 27px;
   letter-spacing: 1px;
@@ -165,7 +166,7 @@ html {
   padding-right: 30px;
   position: relative;
   top: 1px;
-  color: #648cff;
+  color: #e75a27;
 }
 .fh5co-advantages-outer .fh5co-advantages-grid-columns .col-sm-4 .grid-title {
   float: left;
@@ -187,6 +188,13 @@ html {
   margin-bottom: 30px;
 }
 
+.fh5co-advantages-outer h1{
+  color: #e75a27;
+}
+
+.fh5co-advantages-outer small{
+  font-size: 20px;
+}
 /* ==========================================================================================================
 										SLIDER
    ========================================================================================================== */
@@ -196,7 +204,7 @@ html {
   padding: 70px;
 }
 .fh5co-slider-outer h1 {
-  color: #648cff;
+  color: #e75a27;
   text-transform: uppercase;
   font-size: 30px;
   font-weight: 600;
@@ -257,7 +265,7 @@ html {
   position: relative;
 }
 .fh5co-features-outer .sm-6-content h1 {
-  color: #648cff;
+  color: #e75a27;
   text-transform: uppercase;
   font-size: 25px;
   font-weight: 600;
@@ -413,7 +421,7 @@ html {
   margin-top: 100px;
 }
 .fh5co-reviews-outer > h1 {
-  color: #648cff;
+  color: #e75a27;
   text-transform: uppercase;
   font-size: 30px;
   font-weight: 600;
@@ -421,6 +429,7 @@ html {
   text-align: center;
 }
 .fh5co-reviews-outer > small {
+  font-size: 18px;
   text-align: center;
   display: block;
 }
@@ -575,6 +584,15 @@ html {
 }
 
 .google-play-btn {
+  margin-left: 10px;
+}
+
+.features-btn-first {
+  font-size: 15px;
+  padding: 8px 13px;
+  font-weight: 400;
+  background: #e75a27;
+  color: #fff;
   margin-left: 10px;
 }
 

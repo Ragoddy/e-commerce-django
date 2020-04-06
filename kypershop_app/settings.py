@@ -73,7 +73,9 @@ THIRD_PARTY_APPS = [
 
 #local App´s
 LOCAL_APPS = [
-    'markets'
+    'markets',
+    'orders',
+    'users',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

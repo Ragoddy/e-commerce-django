@@ -14,7 +14,7 @@ from django.contrib.gis.geos import Point
 
 from markets.models import Category, Market, Telephone
 
-from api.serializers import CategorySerializer, MarketSerializer, TelephoneSerializer, ProductSerializer
+from api.serializers.serializer_markets import CategorySerializer, MarketSerializer, TelephoneSerializer, ProductSerializer
 
 
 class CategoryListAPIView(APIView):

@@ -1,10 +1,17 @@
 from django.urls import path, include
-from api import views
+from api.views import view_markets, view_orders, view_users
 
 
 urlpatterns = [
-    path('categories/', views.CategoryListAPIView.as_view(), name='api-categories'),
-    path('markets/', views.MarketCreateAPIView.as_view(), name='api-markets-create'),
-    path('markets/<str:longitude>/<str:latitude>/', views.MarketListAPIView.as_view(), name='api-markets-list'),
-    path('phones/', views.PhoneCreateAPIView.as_view(), name='api-phones-create'),
+    #markets
+    path('categories/', view_markets.CategoryListAPIView.as_view(), name='api-categories-list'),
+    path('markets/', view_markets.MarketCreateAPIView.as_view(), name='api-markets-create'),
+    path('markets/<str:longitude>/<str:latitude>/', view_markets.MarketListAPIView.as_view(), name='api-markets-list'),
+    path('phones/', view_markets.PhoneCreateAPIView.as_view(), name='api-phones-create'),
+    
+    #Users
+    path('clients/', view_users.ClientCreateAPIView.as_view(), name='api-clients-create'),
+    
+    #Orders
+    path('orders/', view_orders.OrderCreateAPIView.as_view(), name='api-orders-create'),
 ]

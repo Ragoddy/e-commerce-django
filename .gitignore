@@ -17,6 +17,8 @@ media/
 __pycache__/
 *.py[cod]
 *$py.class
+kypershop_app/__pycache__/
+markets/__pycache__/
 
 # C extensions
 *.so

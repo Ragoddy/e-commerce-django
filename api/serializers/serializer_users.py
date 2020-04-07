@@ -6,4 +6,4 @@ from users.models import *
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['UUID', 'longitude', 'latitude', 'state', 'creation_date']
+        fields = ['UUID', 'longitude', 'latitude', 'location', 'state', 'creation_date']

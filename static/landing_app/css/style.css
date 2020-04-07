@@ -175,10 +175,10 @@ html {
 }
 .fh5co-advantages-outer .fh5co-advantages-grid-columns .col-sm-4 .grid-desc {
   float: right;
-  font-size: 13px;
+  font-size: 15px;
   padding-right: 7%;
   width: 70%;
-  color: #c7c7c7;
+  color: #a3a2a2;
   margin-top: 10px;
   line-height: 1.87em;
 }
@@ -190,6 +190,7 @@ html {
 
 .fh5co-advantages-outer h1{
   color: #e75a27;
+  text-align: center;
 }
 
 .fh5co-advantages-outer small{
@@ -270,6 +271,7 @@ html {
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 20px;
+  text-align: center;
 }
 .fh5co-features-outer .sm-6-content p {
   color: #111;
@@ -462,10 +464,11 @@ html {
   margin-bottom: 30px;
 }
 .fh5co-bottom-outer .fh5co-bottom-inner .col-sm-6 p {
-  width: 350px;
+  width: 400px;
   color: #fff;
   font-size: 14.5px;
   line-height: 1.85em;
+  text-align: justify;
 }
 .fh5co-bottom-outer .fh5co-bottom-inner .col-sm-6 img {
   margin-top: 25px;

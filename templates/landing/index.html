@@ -113,7 +113,7 @@
 
 	<div id="fh5co-features" class="fh5co-advantages-outer">
 		<div class="container">
-			<h1 class="text-center">#QuedateEnCasa</h1>
+			<h1>#QuedateEnCasa</h1>
 			<small>Queremos ayudar a los pequeños comercios a seguir empujando la economia del país</small>
 
 			<div class="row fh5co-advantages-grid-columns wow animated fadeIn" data-wow-delay="0.36s">
@@ -235,39 +235,41 @@
 
 	<div id="fh5co-reviews" class="fh5co-reviews-outer">
 		<h1>Registrar Nuevo Comercio (Kyper)</h1>
-		<small>Eres tendero o dueño de un negocio o conoces alguno cerca a tu domicilio, ingresa los datos y pronto nos comunicaremos</small>
-		<div class="container fh5co-reviews-inner">
+		<small>Eres dueño de un negocio o conoces alguno cerca a tu domicilio, ingresa los datos y pronto nos comunicaremos</small>
+		<br><br>
+		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-8">
-					<form>
+					<form action="{% url "create_kyper_landing" %}" method="POST">
+						{% csrf_token %}
 						<div class="form-group row">
 							<label for="name" class="col-sm-3 col-form-label">Nombre Comercio</label>
 							<div class="col-sm-9">
-							<input type="text" class="form-control" id="name" placeholder="Nombre Comercio" required>
+							<input type="text" class="form-control" id="name" name="name" placeholder="Nombre Comercio" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="address" class="col-sm-3 col-form-label">Dirección</label>
 							<div class="col-sm-9">
-							<input type="text" class="form-control" id="address" placeholder="dirección" required>
+							<input type="text" class="form-control" id="address"  name="addresses" placeholder="dirección" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="city" class="col-sm-3 col-form-label">Ciudad</label>
 							<div class="col-sm-9">
-							<input type="text" class="form-control" id="city" placeholder="Ciudad" required>
+							<input type="text" class="form-control" id="city"  name="city" placeholder="Ciudad" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="phone" class="col-sm-3 col-form-label">Teléfono</label>
 							<div class="col-sm-9">
-							<input type="text" class="form-control" id="phone" placeholder="Teléfono" required>
+							<input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono" required>
 							</div>
 						</div>
 						<br>
 						<div class="form-group row">
 							<div class="col-sm-12">
-								<button class="btn btn-block features-btn-first">Registrar nuevo comercio</button>
+								<button type="submit" class="btn btn-block features-btn-first">Registrar nuevo comercio</button>
 							</div>
 						</div>
 					</form>

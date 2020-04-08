@@ -36,7 +36,9 @@ class ScheduleSerializer(serializers.ModelSerializer):
         
                 
 class MarketSerializer(serializers.ModelSerializer):
+    
+    phone_set = TelephoneSerializer(read_only = True)
     class Meta:
         model = Market
-        fields =('pk','code','name','addresses','location','city','minimun_price', 'state')    
+        fields =('pk','code','name','addresses','longitude', 'latitude', 'location','city','minimun_price', 'state', 'phone_set') 
         

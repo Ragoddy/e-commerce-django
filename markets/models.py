@@ -89,7 +89,7 @@ class Market(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     location =models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535))
     categories = models.ManyToManyField('Category')
-    products = models.ManyToManyField('Product', blank=True, null=True)
+    products = models.ManyToManyField('Product')
     
     def __str__(self):
         return str(self.name)

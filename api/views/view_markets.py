@@ -99,5 +99,16 @@ class MarketCreateAPIView(APIView):
         serializer = MarketSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            ##save phone
+            data_phone = {
+                          'type_telephone': 2,
+                          'number': request.data['phone_set'], 
+                          'first': 1, 
+                          'market': serializer.data['pk']
+                        }
+            
+            serializer_phone = TelephoneSerializer(data=data_phone)
+            if serializer_phone.is_valid():
+                serializer_phone.save()
             return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)
         return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)

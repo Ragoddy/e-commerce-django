@@ -12,6 +12,9 @@ from rest_framework import status
 from django.contrib.gis.measure import Distance
 from django.contrib.gis.geos import Point
 
+import traceback
+import sys
+
 from markets.models import Category, Market, Telephone
 
 from api.serializers.serializer_markets import CategorySerializer, MarketSerializer, TelephoneSerializer, ProductSerializer
@@ -96,24 +99,37 @@ class MarketCreateAPIView(APIView):
     API endpoint for create markets app
     """
     def post(self, request, version, format=None):
-        serializer = MarketSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            ##save phone    
-            data_phone = {
-                          'type_telephone': 2,
-                          'number': request.data['phone_set'], 
-                          'first': 1, 
-                          'market': serializer.data['pk']
-                        }
-            
-            serializer_phone = TelephoneSerializer(data=data_phone)
-            if serializer_phone.is_valid():
-                serializer_phone.save()                
-           
-            market = Market.objects.get(pk = serializer.data['pk'])
-            category = Category.objects.get(pk= request.data['category_set'])
-            market.categories.add(category)
-            
-            return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)
-        return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            serializer = MarketSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                ##save phone                    
+                try:
+                    data_phone = {
+                            'type_telephone': 2,
+                            'number': request.data['phone_set'], 
+                            'first': 1, 
+                            'market': serializer.data['pk']
+                            }
+                
+                    serializer_phone = TelephoneSerializer(data=data_phone)
+                    if serializer_phone.is_valid():
+                        serializer_phone.save()          
+                except KeyError:
+                    print("Error in telephone_set")                      
+
+                #save category  
+                try:
+                    market = Market.objects.get(pk = serializer.data['pk'])
+                    category = Category.objects.get(pk= request.data['category_set'])
+                    market.categories.add(category)
+                except KeyError:
+                    print("Error in category_set")                
+                
+                return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)
+            print("error: " , str(serializer.errors))
+            return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            error_msg = traceback.format_exc()
+            print(error_msg)
+            return Response({"success":False, "data": None , "message": error_msg }, status=status.HTTP_400_BAD_REQUEST)

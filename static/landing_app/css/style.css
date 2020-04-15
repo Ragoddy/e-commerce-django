@@ -118,7 +118,7 @@ html {
   font-size: 15px;
   padding: 8px 13px;
   font-weight: 400;
-  background: #e75a27;
+  background: #34495E;
   color: #fff;
   margin-left: 10px;
 }
@@ -489,7 +489,7 @@ html {
   width: 100%;
   padding: 50px;
   height: 250px;
-  background: #2e3149;
+  background: #34495E;
   overflow: hidden;
 }
 .footer-outer .footer-inner {

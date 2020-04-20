@@ -17,14 +17,14 @@ admin.site.register(Schedule)
 
 @admin.register(Market)
 class MarketAdmin(OSMGeoAdmin):
-    list_display = ('name', 'addresses' , 'longitude', 'latitude', 'creation_date')
+    list_display = ('name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'state')
+    search_fields = ['name','addresses', 'state']
     
-
 admin.site.register(Product)
 
 @admin.register(Client)
 class ClientAdmin(OSMGeoAdmin):
-    list_display = ('UUID', 'longitude', 'latitude', 'state', 'creation_date')
+    list_display = ('UUID', 'longitude', 'latitude', 'state', 'creation_date')    
     
     
 @admin.register(Order)

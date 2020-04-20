@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.views.generic import View, ListView, FormView
 from django.http import HttpResponseRedirect, HttpResponse

@@ -9,8 +9,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from django.contrib.gis.measure import Distance
+from django.contrib.gis.measure import D
 from django.contrib.gis.geos import Point
+from django.contrib.gis.db.models.functions import Distance
 
 import traceback
 import sys
@@ -58,14 +59,13 @@ class MarketListAPIView(APIView):
         """        
         longitude = float(longitude)
         latitude = float(latitude)
-        market_location = Point(longitude, latitude)
+        client_location = Point(longitude, latitude, srid=4326)
         
         queryset = []
          
-        markets = Market.objects.filter(state = 1,location__distance_lt=(market_location, Distance(m=2000))) 
-        
+        # markets = Market.objects.filter(state = 1,location__distance_lt=(client_location, D(m=2000)))[:10]        
+        markets = Market.objects.filter(state=1).annotate(distance=Distance('location', client_location)).order_by('distance')[0:15]
         for market in markets:    
-            
             queryset_phone = Telephone.objects.filter(market = market.id)
             serializer_phones = TelephoneSerializer(queryset_phone, many=True)  
 

@@ -38,6 +38,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('administrator_app/', admin.site.urls),
     path('', include('landing.urls')),
+    path('search/', include('front.urls')),
     re_path('api/(?P<version>(v1))/', include('api.urls')),
 ]
 

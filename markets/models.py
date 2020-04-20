@@ -87,7 +87,7 @@ class Market(models.Model):
     minimun_price = models.FloatField()
     state = models.IntegerField(default=1, choices=STATE_CHOICES)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
-    location =models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535))
+    location =models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     categories = models.ManyToManyField('Category')
     products = models.ManyToManyField('Product')
     

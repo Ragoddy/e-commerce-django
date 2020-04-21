@@ -26,7 +26,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon/favicon-96x96.png' %}">
 	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icon/favicon-16x16.png' %}">
-	<link rel="manifest" href="/manifest.json">
+	<!-- <link rel="manifest" href="/manifest.json"> -->
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="{% static 'icon/ms-icon-144x144.png' %}">
 	<meta name="theme-color" content="#ffffff">
@@ -53,7 +53,8 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="{% static 'landing_app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'landing_app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'kypershop/style.css' %}">
 </head>
 <body>
 
@@ -78,19 +79,26 @@
                   </div>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div id="message_box" class="row justify-content-center">
             <div class="col-sm-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Encuentra y pide a domicilio a los comercios más cercanos de tu casa</h5>
+                        <h5 class="card-title">En Kypershop encuentras y pides a domicilio a los comercios más cercanos de tu casa</h5>
                         <p class="card-text">Quédate en casa y encuentra restaurantes, mini-market, carnicerías, farmacias, papelerías y ferreterías de confianza.</p>
                     </div>
                 </div>
             </div>
             <br>
-            <div class="col-sm-10">
-                <div id="container_markerts" class="d-flex flex-row flex-wrap align-content-start bd-highlight mb-3">
-                    
+            <div id="loading_box" class="col-sm-10" style="width: 100%; height: 300px; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="loader">Loading...</div>
+                        <h5 class="card-title text-center">Encontrando Kypers cerca a ti...</h5>
+                    </div>
+                </div>
+            </div>
+            <div id="markets_box" class="col-sm-10">
+                <div id="container_markerts" class="row d-flex flex-row flex-wrap align-content-start bd-highlight mb-3">
                     
                 </div>
             </div>
@@ -143,6 +151,14 @@
         $( document ).ready(function() {
             var $message_geo = $("#message_geo");
             var $container_markerts = $("#container_markerts");
+            var $loading = $("#loading_box");
+            var $markets_box = $("#markets_box");
+            var $message_box = $("#message_box");
+
+
+            $markets_box.css("display", "none");
+            $loading.css("display", "none");
+            $message_box.css("display", "none");
 
             function getLocation() {
 
@@ -159,32 +175,35 @@
 
                 if(latlon.length > 0){                    
                     $message_geo.css("display", "none");
+                    $message_box.fadeIn("fast");
+                    $loading.fadeIn("fast");
 
                     $.get( "/api/v1/markets/" + latlon, function( data ) {
                         
                         if(data.success){
                             var data = data.data;
-                            console.log(data);
+                            $loading.fadeOut("fast");
                             $container_markerts.empty();
                             $.each(data, function( key, value ) {
-                                $container_markerts.append( '<div class="item_flex_market p-3 bd-highlight" style="width: 33%;">'+
+                                $container_markerts.append( '<div class="item_flex_market p-3 bd-highlight col-xs-12 col-sm-6 col-md-3">'+
                                     '<div class="card mb-3">'+
-                                        '<div class="row no-gutters">'+
-                                            '<div class="col-md-4">'+
-                                                '<img src="..." class="card-img" alt="...">'+
-                                            '</div>'+
-                                            '<div class="col-md-8">'+
-                                                '<div class="card-body">'+
-                                                    '<h5 class="card-title">'+ value.name +'</h5>'+
+                                        '<div class="row no-gutters">'+                                            
+                                            '<div class="col-md-12">'+
+                                                '<div class="card-body card_body_market">'+
+                                                    '<h5 class="card-title"><img src="{% static "icon/android-icon-192x192.png" %}" '+
+                                                    'width="30" height="30" alt="kypershop"> '+ value.name +'</h5>'+
                                                     '<p class="card-text">'+ value.addresses +'</p>'+
                                                     '<p class="card-text"><small class="text-muted">'+ value.city +'</small></p>'+
-                                                    '<a href="tel:'+ value.phones[0].number +'" class="btn btn-outline-secondary">'+ value.phones[0].number +'</a>'+
+                                                    '<p class="card-text"><small class="text-muted">'+ value.categories[0].name +'</small></p>'+
+                                                    '<a href="tel:'+ value.phones[0].number +'" class="btn btn-block btn-outline-warning btn_phone">'+
+                                                    '<i class="fa fa-phone"></i> '+ value.phones[0].number +'</a>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>');
                             });
+                            $markets_box.fadeIn("slow");
                         }
                     });
                 }

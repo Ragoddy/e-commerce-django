@@ -76,6 +76,7 @@ class MarketListAPIView(APIView):
             serializer_products = ProductSerializer(queryset_products, many=True)      
             
             obj ={
+                    "pk": market.pk,
                     "code": market.code,
                     "name": market.name,
                     "addresses": market.addresses,

@@ -81,17 +81,20 @@
 						<a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">¿Cómo funciona?</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="/search/">Pedir Domicilio</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Registrar</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Descargar</a>
 					</li>
 				</ul>
-				<div class="social-icons-header">
+				{% comment %} <div class="social-icons-header">
 					<a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
 					<a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
-				</div>
+				</div> {% endcomment %}
 			</div>
 		</nav>
 
@@ -112,10 +115,10 @@
 		 ========================================================================================================== -->
 
 	<div id="fh5co-features" class="fh5co-advantages-outer">
+		
 		<div class="container">
-			<h1>#QuédateEnCasa</h1>
-			<small>Queremos ayudar a los pequeños comercios a seguir empujando la economia del país</small>
-
+		<h1>#Quédate En Casa</h1>
+		<small>Queremos ayudar a los pequeños comercios a seguir empujando la economia del país</small>
 			<div class="row fh5co-advantages-grid-columns wow animated fadeIn" data-wow-delay="0.36s">
 
 				<div class="col-sm-4">
@@ -133,7 +136,9 @@
 				<div class="col-sm-4">
 					<img class="grid-image" src="{% static 'landing_app/img/call.png' %}" alt="phone">
 					<h1 class="grid-title">3. Paso</h1>
-					<p class="grid-desc">Escoge el comercio (Kypers) que necesitas y llama al número que aparece en pantalla.</p>
+					<p class="grid-desc">Escoge el comercio (Kypers) que necesitas y llama al número que aparece en pantalla. 
+					<a href="/search/" class="btn btn-block features-btn-first" style="margin-left:0">Pide Ahora</a>
+					</p>
 				</div>
 
 
@@ -324,8 +329,8 @@
 				</div>
 				<div class="column-3-3">
 					<div class="social-icons-footer">
-						<a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
-						<a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
+						<a href="https://www.facebook.com/kypershop"><i class="fab fa-facebook-f"></i></a>
+						<a href="https://www.instagram.com/kypershop/"><i class="fab fa-instagram"></i></a>
 						<a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
 					</div>
 				</div>

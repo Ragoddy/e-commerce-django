@@ -455,7 +455,7 @@ html {
   overflow-x: hidden;
 }
 .fh5co-bottom-outer .fh5co-bottom-inner {
-  margin-top: 270px;
+  margin-top: 200px;
 }
 .fh5co-bottom-outer .fh5co-bottom-inner .col-sm-6 h1 {
   color: #fff;
@@ -848,12 +848,12 @@ html {
   }
 
   .fh5co-bottom-outer {
-    margin-top: 40px;
+    margin-top: 20px;
     overflow: hidden;
   }
 
   .fh5co-bottom-outer .fh5co-bottom-inner {
-    margin-top: 50px;
+    margin-top: 20px;
   }
 
   .fh5co-slider-outer {

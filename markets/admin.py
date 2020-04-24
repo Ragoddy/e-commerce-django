@@ -17,8 +17,13 @@ admin.site.register(Schedule)
 
 @admin.register(Market)
 class MarketAdmin(OSMGeoAdmin):
-    list_display = ('name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'state')
+    list_display = ('name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'state', 'telephone_first')
     search_fields = ['name','addresses', 'state']
+    ordering = ('-pk',)
+    
+    def telephone_first(self, obj):
+        telephone = Telephone.objects.filter(market = obj.id)[0]
+        return str(telephone)
     
 admin.site.register(Product)
 

@@ -54,6 +54,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, blank=True, null=True)
     state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    distance = models.IntegerField(default=3000, blank=True, null=True)
     image = models.ImageField(upload_to=category_path, blank=True, null=True)
     
     def __str__(self):

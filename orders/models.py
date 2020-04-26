@@ -8,10 +8,6 @@ import os
 import uuid
 
 #choices
-STATE_CHOICES = [     
-    (1,'active'),
-    (0,'inactive'),
-]
 
 ORDER_CHOICES = [    
     (3,'other'), 

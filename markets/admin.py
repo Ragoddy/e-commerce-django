@@ -17,19 +17,21 @@ admin.site.register(Schedule)
 
 @admin.register(Market)
 class MarketAdmin(OSMGeoAdmin):
-    list_display = ('name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'state', 'telephone_first')
-    search_fields = ['name','addresses', 'state']
+    list_display = ('code','name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'status', 'telephone_first')
+    search_fields = ['name','addresses', 'status']
     ordering = ('-pk',)
     
     def telephone_first(self, obj):
-        telephone = Telephone.objects.filter(market = obj.id)[0]
+        telephone = None
+        if Telephone.objects.filter(market = obj.id).exists():
+            telephone = Telephone.objects.filter(market = obj.id)[0]
         return str(telephone)
     
 admin.site.register(Product)
 
 @admin.register(Client)
 class ClientAdmin(OSMGeoAdmin):
-    list_display = ('UUID', 'longitude', 'latitude', 'state', 'creation_date')    
+    list_display = ('UUID', 'longitude', 'latitude', 'status', 'creation_date')    
     
     
 @admin.register(Order)

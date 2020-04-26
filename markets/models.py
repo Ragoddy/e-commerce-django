@@ -10,7 +10,7 @@ import uuid
 
 
 #choices list´s
-STATE_CHOICES = [     
+STATUS_CHOICES = [     
     (1,'active'),
     (0,'inactive'),
 ]
@@ -53,7 +53,7 @@ class Category(models.Model):
     code = models.CharField(max_length=20, unique=True, null=True)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, blank=True, null=True)
-    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     distance = models.IntegerField(default=3000, blank=True, null=True)
     image = models.ImageField(upload_to=category_path, blank=True, null=True)
     
@@ -64,7 +64,7 @@ class Telephone(models.Model):
     type_telephone = models.IntegerField(default=1, choices=PHONE_CHOICES)
     number = models.CharField(max_length=150)
     first = models.BooleanField(default=False)
-    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -74,7 +74,7 @@ class Schedule(models.Model):
     day = models.IntegerField(default=1, choices=DAYS_CHOICES)
     start_hour = models.TimeField(auto_now=False, auto_now_add=False)
     end_hour = models.TimeField(auto_now=False, auto_now_add=False)
-    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -85,8 +85,8 @@ class Market(models.Model):
     name = models.CharField(max_length=200)
     addresses = models.CharField(max_length=200)    
     city = models.CharField(max_length=150)
-    minimun_price = models.FloatField()
-    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    minimum_price = models.FloatField()
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     location =models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     categories = models.ManyToManyField('Category')

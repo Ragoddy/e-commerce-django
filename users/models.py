@@ -9,7 +9,7 @@ import os
 import uuid
 
 #choices
-STATE_CHOICES = [     
+STATUS_CHOICES = [     
     (1,'active'),
     (0,'inactive'),
 ]
@@ -19,7 +19,7 @@ STATE_CHOICES = [
 class Client(models.Model):
     UUID = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
     location = models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535))
-    state = models.IntegerField(default=1, choices=STATE_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)        
 
     def __str__(self):

@@ -18,8 +18,8 @@ class LandingCreateKyperView(View):
                 'name': request.POST['name'],
                 'addresses': request.POST['addresses'],
                 'city': request.POST['city'],
-                'minimun_price': 4000,
-                'state': 0
+                'minimum_price': 4000,
+                'status': 0
                 }
         
         serializer = MarketSerializer(data=data)

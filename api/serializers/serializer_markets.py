@@ -31,15 +31,19 @@ class TelephoneSerializer(serializers.ModelSerializer):
         
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
+        state = serializers.IntegerField(read_only = True)
+        
         model = Telephone
-        fields = ['pk','day', 'start_hour', 'end_hour', 'state', 'market']
+        fields = ['pk','day', 'start_hour', 'end_hour', 'status', 'market', 'state']
         
                 
 class MarketSerializer(serializers.ModelSerializer):
     
     phone_set = TelephoneSerializer(read_only = True)
     category_set = serializers.IntegerField(read_only = True)
+    minimun_price = serializers.IntegerField(read_only = True)
+    state = serializers.IntegerField(read_only = True)
     class Meta:
         model = Market
-        fields =('pk','code','name','addresses','longitude', 'latitude', 'location','city','minimun_price', 'state', 'phone_set', 'category_set') 
+        fields =('pk','code','name','addresses','longitude', 'latitude', 'location','city','minimum_price', 'status', 'phone_set', 'category_set', 'state', 'minimun_price') 
         

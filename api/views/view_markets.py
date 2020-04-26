@@ -62,7 +62,7 @@ class MarketListAPIView(APIView):
         client_location = Point(longitude, latitude, srid=4326)
         
         queryset = []              
-        markets = Market.objects.filter(state=1).annotate(distance=Distance('location', client_location)).order_by('distance')[0:25]
+        markets = Market.objects.filter(status=1).annotate(distance=Distance('location', client_location)).order_by('distance')[0:25]
         for market in markets:    
             queryset_phone = Telephone.objects.filter(market = market.id)
             serializer_phones = TelephoneSerializer(queryset_phone, many=True)  
@@ -81,7 +81,8 @@ class MarketListAPIView(APIView):
                     "city": market.city,
                     "longitude": market.longitude,
                     "latitude": market.latitude,
-                    "minimun_price": market.minimun_price,
+                    "minimun_price": market.minimum_price,
+                    "minimum_price": market.minimum_price,
                     "phones": serializer_phones.data,
                     "categories": serializer_category.data,
                     "products": serializer_products.data

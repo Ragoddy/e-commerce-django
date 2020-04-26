@@ -185,6 +185,10 @@
                             $loading.fadeOut("fast");
                             $container_markerts.empty();
                             $.each(data, function( key, value ) {
+                                var phone = "No tiene";
+                                if(value.phones.length > 0){
+                                    phone = value.phones[0].number;
+                                }
                                 $container_markerts.append( '<div class="item_flex_market p-3 bd-highlight col-xs-12 col-sm-6 col-md-3">'+
                                     '<div class="card mb-3">'+
                                         '<div class="row no-gutters">'+                                            
@@ -195,8 +199,8 @@
                                                     '<p class="card-text">'+ value.addresses +'</p>'+
                                                     '<p class="card-text"><small class="text-muted">'+ value.city +'</small></p>'+
                                                     '<p class="card-text"><small class="text-muted">'+ value.categories[0].name +'</small></p>'+
-                                                    '<a href="tel:'+ value.phones[0].number +'" class="btn btn-block btn-outline-warning btn_phone">'+
-                                                    '<i class="fa fa-phone"></i> '+ value.phones[0].number +'</a>'+
+                                                    '<a href="tel:'+ phone +'" class="btn btn-block btn-outline-warning btn_phone">'+
+                                                    '<i class="fa fa-phone"></i> '+ phone +'</a>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>'+

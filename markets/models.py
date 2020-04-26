@@ -102,6 +102,13 @@ class Market(models.Model):
     @property
     def latitude(self):
         return self.location.y
+    
+    @property
+    def telephone_first(self):
+        telephone = None        
+        if Telephone.objects.filter(market = self.id).exists():
+            telephone = Telephone.objects.filter(market = self.id)[0]
+        return str(telephone)
 
 class Product(models.Model):
     name = models.CharField(max_length=150)

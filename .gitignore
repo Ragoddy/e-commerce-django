@@ -130,3 +130,7 @@ media/
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+
+
+#files
+kypershop_app/settings.py

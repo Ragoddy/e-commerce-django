@@ -121,7 +121,7 @@ REST_FRAMEWORK = {
 DATABASES = {
      'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'kypershop_db',
+        'NAME': 'kypershop_dev',
         'USER': 'user_db',
         'PASSWORD': 'kypershop2020$$',
         'HOST': 'rds-instance-kypershop.cuur8bbcuhzo.us-east-1.rds.amazonaws.com',

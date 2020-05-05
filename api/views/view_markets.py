@@ -29,7 +29,7 @@ class CategoryListAPIView(APIView):
         """
         Return a list of all categories.
         """     
-        queryset = Category.objects.all()
+        queryset = Category.objects.all().order_by('sorting')
         serializer = CategorySerializer(queryset, many=True, context={"request":request})
         
         return Response({"success":True, "data": serializer.data, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)

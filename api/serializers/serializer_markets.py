@@ -2,19 +2,11 @@ from rest_framework import serializers
 
 from markets.models import *
 
-class CategorySerializer(serializers.ModelSerializer):
-    
-    # img_url = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False)
-    # img_url = serializers.SerializerMethodField()
+class CategorySerializer(serializers.ModelSerializer):    
     
     class Meta:
         model = Category
-        fields = ('code', 'name', 'description')
-    
-    def get_img_url(self, category):
-        request = self.context.get('request')        
-        img_url = category.image.url
-        return request.build_absolute_uri(img_url)
+        fields = ('code', 'name', 'description', 'count_markets', 'sorting', 'image')   
 
 
 class ProductSerializer(serializers.ModelSerializer):

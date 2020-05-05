@@ -55,10 +55,18 @@ class Category(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     distance = models.IntegerField(default=3000, blank=True, null=True)
+    sorting = models.IntegerField(default=0, blank=True, null=True)
     image = models.ImageField(upload_to=category_path, blank=True, null=True)
     
     def __str__(self):
         return str(self.name)
+    
+    @property
+    def count_markets(self):
+        count = 0        
+        if Market.objects.filter(categories__id = self.id).exists():
+            count = Market.objects.filter(categories__id = self.id).count()
+        return count
 
 class Telephone(models.Model):
     type_telephone = models.IntegerField(default=1, choices=PHONE_CHOICES)

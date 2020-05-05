@@ -6,7 +6,10 @@ from users.models import Client
 from orders.models import Order
 
 
-admin.site.register(Category)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'distance', 'sorting', 'image')
 
 @admin.register(Telephone)
 class TelephoneAdmin(admin.ModelAdmin):

@@ -98,7 +98,6 @@ class Market(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     location =models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     categories = models.ManyToManyField('Category')
-    products = models.ManyToManyField('Product')
     
     def __str__(self):
         return str(self.name)
@@ -119,14 +118,16 @@ class Market(models.Model):
         return str(telephone)
 
 class Product(models.Model):
-    name = models.CharField(max_length=150)
-    description = models.CharField(max_length=300, blank=True, null=True)
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=500, blank=True, null=True)
     size = models.CharField(max_length=50, blank=True, null=True)
     price = models.FloatField(default=0)
     image = models.ImageField(upload_to=product_path, blank=True, null=True)
-    categories = models.ManyToManyField('Category')
+    available = models.IntegerField(default=1, choices=STATUS_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
+    market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
     
     def __str__(self):
-        return str(self.name)
+        return str(self.title)
     
     

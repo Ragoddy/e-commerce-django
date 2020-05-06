@@ -3,8 +3,6 @@ from django.contrib.gis.admin import OSMGeoAdmin, GeoModelAdmin
 
 from markets.models import Category, Telephone, Schedule, Market, Product
 from users.models import Client
-from orders.models import Order
-
 
 
 @admin.register(Category)
@@ -31,6 +29,3 @@ class ClientAdmin(OSMGeoAdmin):
     list_display = ('UUID', 'longitude', 'latitude', 'status', 'creation_date')    
     
     
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ('type_so', 'creation_date', 'number_phone', 'market')

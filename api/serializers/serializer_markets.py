@@ -12,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['pk','name', 'description', 'size', 'price']
+        fields = ['pk','title', 'description', 'size', 'price', 'image', 'available']
         
         
 class TelephoneSerializer(serializers.ModelSerializer):

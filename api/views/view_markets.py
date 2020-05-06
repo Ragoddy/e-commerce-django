@@ -70,7 +70,7 @@ class MarketListAPIView(APIView):
             queryset_category = market.categories.all()
             serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request})        
             
-            queryset_products = market.products.all()
+            queryset_products = market.products.filter(market = market.id)
             serializer_products = ProductSerializer(queryset_products, many=True)      
             
             obj ={

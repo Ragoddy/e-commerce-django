@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>kypershop - de la tienda a tu casa</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Encuentra y pide a domicilio a los comercios más cercanos de tu casa" />
+	<meta name="keywords" content="domicilio, docmicilios, comida, pide, comercios, farmacias, tiendas, restaurantes, pedidos, aplicación, responsive" />
+	<meta name="author" content="https://kypershop.com/" />
+
+	<link rel="shortcut icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+	<link rel="icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="{% static 'icon/apple-icon-57x57.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'icon/apple-icon-60x60.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'icon/apple-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'icon/apple-icon-76x76.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-icon-114x114.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'icon/apple-icon-120x120.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'icon/apple-icon-144x144.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'icon/apple-icon-152x152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'icon/apple-icon-180x180.png' %}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'icon/android-icon-192x192.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon/favicon-96x96.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icon/favicon-16x16.png' %}">
+	<!-- <link rel="manifest" href="/manifest.json"> -->
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="{% static 'icon/ms-icon-144x144.png' %}">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'landing_app/css/bootstrap.css' %}">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="{% static 'landing_app/css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'landing_app/css/owl.theme.default.min.css' %}">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'landing_app/css/animate.css' %}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<!-- Theme style  -->
+    <link rel="stylesheet" href="{% static 'landing_app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'kypershop/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark" style="background-color: #e75a27; color: white;">
+        <a class="navbar-brand" href="/">
+        <img src="{% static 'icon/android-icon-192x192.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        KyperShop
+        </a>
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+          <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}">Sign In</a></li>
+          <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <br>
+        <div id="message_geo" class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Encuentra y pide a domicilio a los comercios más cercanos de tu casa</h5>
+                      <p class="card-text">Quédate en casa y encuentra restaurantes, mini-market, carnicerías, farmacias, papelerías y ferreterías de confianza.</p>
+                      <p class="card-text">Para poder ver los comercios cercanos debes dar clic en el siguiente bóton</p>
+                      <button id="btn_geo" class="btn btn-dark">Habilitar la ubicación</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div id="message_box" class="row justify-content-center">
+            <div class="col-sm-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">En Kypershop encuentras y pides a domicilio a los comercios más cercanos de tu casa</h5>
+                        <p class="card-text">Quédate en casa y encuentra restaurantes, mini-market, carnicerías, farmacias, papelerías y ferreterías de confianza.</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="loading_box" class="col-sm-10" style="width: 100%; height: 300px; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="loader">Loading...</div>
+                        <h5 class="card-title text-center">Encontrando Kypers cerca a ti...</h5>
+                    </div>
+                </div>
+            </div>
+            <div id="markets_box" class="col-sm-10">
+                <div id="container_markerts" class="row d-flex flex-row flex-wrap align-content-start bd-highlight mb-3">
+                    
+                </div>
+            </div>
+        </div>
+    </div>   
+
+
+	<!-- ==========================================================================================================
+                                               SECTION 7 - SUB FOOTER
+    ========================================================================================================== -->
+      
+
+	<footer class="footer-outer">
+		<div class="container footer-inner">
+
+			<div class="footer-three-grid wow fadeIn animated" data-wow-delay="0.66s">
+				<div class="column-1-3">
+					<h1>KyperShop</h1>
+				</div>
+				<div class="column-2-3">
+					<nav class="footer-nav">
+						<ul>
+							<a href="#" onclick="$('#fh5co-hero-wrapper').goTo();return false;"><li>Inicio</li></a>
+							<a href="#" onclick="$('#fh5co-features').goTo();return false;"><li>¿Cómo funciona?</li></a>
+							<a href="#" onclick="$('#fh5co-reviews').goTo();return false;"><li>Comercio Nuevo</li></a>
+							<a href="#" onclick="$('#fh5co-download').goTo();return false;"><li class="active">Descargar</li></a>
+						</ul>
+					</nav>
+				</div>
+				<div class="column-3-3">
+					<div class="social-icons-footer">
+						<a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
+						<a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
+						<a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
+					</div>
+				</div>
+			</div>
+
+			<span class="border-bottom-footer"></span>
+
+			<p class="copyright">&copy; 2020 KyperShop. Todos los derechos reservados.</p>
+
+		</div>
+	</footer>
+
+	
+	<script src="{% static 'landing_app/js/jquery.min.js' %}"></script>
+	<script src="{% static 'landing_app/js/bootstrap.js' %}"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var $message_geo = $("#message_geo");
+            var $container_markerts = $("#container_markerts");
+            var $loading = $("#loading_box");
+            var $markets_box = $("#markets_box");
+            var $message_box = $("#message_box");
+
+
+            $markets_box.css("display", "none");
+            $loading.css("display", "none");
+            $message_box.css("display", "none");
+
+            function getLocation() {
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+
+            function showPosition(position) {
+                
+                var latlon = position.coords.longitude + "/" + position.coords.latitude + "/";
+
+                if(latlon.length > 0){                    
+                    $message_geo.css("display", "none");
+                    $message_box.fadeIn("fast");
+                    $loading.fadeIn("fast");
+
+                    $.get( "/api/v1/markets/" + latlon, function( data ) {
+                        
+                        if(data.success){
+                            var data = data.data;
+                            $loading.fadeOut("fast");
+                            $container_markerts.empty();
+                            $.each(data, function( key, value ) {
+                                var phone = "No tiene";
+                                if(value.phones.length > 0){
+                                    phone = value.phones[0].number;
+                                }
+                                $container_markerts.append( '<div class="item_flex_market p-3 bd-highlight col-xs-12 col-sm-6 col-md-3">'+
+                                    '<div class="card mb-3">'+
+                                        '<div class="row no-gutters">'+                                            
+                                            '<div class="col-md-12">'+
+                                                '<div class="card-body card_body_market">'+
+                                                    '<h5 class="card-title"><img src="{% static "icon/android-icon-192x192.png" %}" '+
+                                                    'width="30" height="30" alt="kypershop"> '+ value.name +'</h5>'+
+                                                    '<p class="card-text">'+ value.addresses +'</p>'+
+                                                    '<p class="card-text"><small class="text-muted">'+ value.city +'</small></p>'+
+                                                    '<p class="card-text"><small class="text-muted">'+ value.categories[0].name +'</small></p>'+
+                                                    '<a href="tel:'+ phone +'" class="btn btn-block btn-outline-warning btn_phone">'+
+                                                    '<i class="fa fa-phone"></i> '+ phone +'</a>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>');
+                            });
+                            $markets_box.fadeIn("slow");
+                        }
+                    });
+                }
+            }
+
+            function showError(error) {
+                switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    $message_geo.fadeIn();
+                    alert("User denied the request for Geolocation.")
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    $message_geo.fadeIn();
+                    alert("Location information is unavailable.")
+                    break;
+                case error.TIMEOUT:
+                    $message_geo.fadeIn();
+                    alert("The request to get user location timed out.")
+                    break;
+                case error.UNKNOWN_ERROR:
+                    $message_geo.fadeIn();
+                    alert("An unknown error occurred.")
+                    break;
+                }
+            }
+
+            getLocation();
+           
+
+            $("#btn_geo").click(function() {
+                getLocation();
+            });
+        });
+    </script>
+</body>
+</html>

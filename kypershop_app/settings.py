@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ["*"]
 
 
 # Templates Directory
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+TEMPLATE_DIR = [os.path.join(BASE_DIR,"templates"), os.path.join(BASE_DIR,"templates", "allauth")]
 
 
 #static files
@@ -62,6 +62,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',        
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
@@ -69,6 +70,10 @@ THIRD_PARTY_APPS = [
     'rest_framework_gis',
     'drf_yasg',
     'django.contrib.gis',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 #local App´s
@@ -76,6 +81,8 @@ LOCAL_APPS = [
     'markets',
     'orders',
     'users',
+    'front',
+    'front_market',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -95,7 +102,7 @@ ROOT_URLCONF = 'kypershop_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': TEMPLATE_DIR,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,3 +170,30 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+AUTH_USER_MODEL = 'users.User'
+
+#django allauth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+LOGIN_REDIRECT_URL = 'home'
+
+
+#django mail
+DEFAULT_FROM_EMAIL = 'noreply@kypershop.com'
+SERVER_MAIL = 'noreply@kypershop.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.zoho.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "noreply@kypershop.com"
+EMAIL_HOST_PASSWORD = 'Noreply1234$$'

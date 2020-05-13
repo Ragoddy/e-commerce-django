@@ -36,9 +36,15 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    
+    #WEB
     path('administrator_app/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('landing.urls')),
     path('search/', include('front.urls')),
+    path('web/markets/', include('front_market.urls')),
+    
+    #API
     re_path('api/(?P<version>(v1))/', include('api.urls')),
 ]
 

@@ -30,6 +30,16 @@
     color: #858796;
 }
 
+.topbar {
+    height: 4rem;
+}
+
 .bg_container{
     margin-top: 3rem;
+}
+
+
+/* Styles for product */
+.custom_checkbox_stock{
+    margin-top: 0.4rem;
 }

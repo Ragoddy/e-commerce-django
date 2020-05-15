@@ -5,8 +5,8 @@
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url "home" %}">
-    <div class="sidebar-brand-icon rotate-n-15">
-    <i class="fas fa-laugh-wink"></i>
+    <div class="sidebar-brand-icon">
+    <i class="fas fa-shopping-bag"></i>
     </div>
     <div class="sidebar-brand-text mx-3">Kypershop</div>
 </a>
@@ -26,24 +26,30 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="{% url "home" %}">
-    <i class="fas fa-fw fa-tachometer-alt"></i>
-    <span>Pedidos</span></a>
+    <a class="nav-link" href="{% url "products_markets" %}">
+    <i class="fas fa-fw fa-tags"></i>
+    <span>Productos</span></a>
 </li>
-
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="{% url "home" %}">
-    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <a class="nav-link" href="{% url "orders_markets" %}">
+    <i class="fas fa-fw fa-cash-register "></i>
+    <span>Pedidos</span></a>
+</li>
+
+<!-- Nav Item - Dashboard -->
+<li class="nav-item">
+    <a class="nav-link" href="{% url "promo_markets" %}">
+    <i class="fas fa-fw fa-dollar-sign"></i>
     <span>Promociones</span></a>
 </li>
 
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="{% url "home" %}">
-    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <a class="nav-link" href="{% url "kyper_markets" %}">
+    <i class="fas fa-fw fa-store"></i>
     <span>Mi Kyper</span></a>
 </li>
 
@@ -51,7 +57,7 @@
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
     <a class="nav-link" href="{% url 'account_logout' %}">
-    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <i class="fas fa-fw fa-sign-out-alt"></i>
     <span>Cerrar Sesiòn</span></a>
 </li>
 

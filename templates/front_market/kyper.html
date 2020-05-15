@@ -1,0 +1,66 @@
+{% extends "front_market/base.html" %}
+{% load static %}
+{% block body %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Kyper Comidas Rapidas</h1>    
+    </div>
+    
+     <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Información</h6>
+                </div>
+                <div class="card-body">
+                    <form id="form_product" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}  
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="title">Código</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="title">Nombre</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="title">Dirección</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="title">Ciudad</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="title">Precio Minimo</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="title">Estado</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!-- /.container-fluid -->
+
+
+{% endblock %}
+
+           

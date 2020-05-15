@@ -14,4 +14,8 @@ urlpatterns = [
     
     #Orders
     path('orders/', view_orders.OrderCreateAPIView.as_view(), name='api-orders-create'),
+    
+    #endpoint for tables
+    #products
+    path('table/products/<str:id_market>/', view_markets.ProductListAPIView.as_view(), name='api-product-list-table'),
 ]

@@ -1,0 +1,109 @@
+{% extends "front_market/base.html" %}
+ 
+{% block body %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Mis Productos</h1>    
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                    <h6 class="m-0 font-weight-bold text-primary">Crear Producto</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse" id="collapseCardExample">
+                    <div class="card-body">
+                        <form id="form_product" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}  
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="file">Seleccionar Imagen</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file" name="file" required="required">
+                                    <label class="custom-file-label" for="file">Seleccionar Imagen</label>
+                                </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="title">Título</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="description">Descripción del producto</label>
+                              <input type="text" class="form-control" id="description" name="description" placeholder="Descripción del producto" required="required">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="price">Precio</label>
+                                    <input type="text" class="form-control" id="price" name="price" placeholder="Precio" required="required">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="stock">Disponibilidad</label>
+                                    <div class="custom-control custom-checkbox custom_checkbox_stock">
+                                        <input type="checkbox" class="custom-control-input" id="stock" name="stock" checked>
+                                        <label class="custom-control-label" for="stock">¿El producto esta disponible?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Crear Producto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista de productos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table  class="table table-bordered" id="dataTableProducts" width="100%" cellspacing="0"
+                        data-toggle="table"
+                        data-pagination="true"
+                        data-search="true"
+                        data-show-refresh="true"
+                        data-mobile-responsive="true"
+                        data-id-field="pk"
+                        data-page-list="[10, 25, 50, 100, all]"
+                        data-url="/api/v1/table/products/794/">
+                        <thead>
+                        <tr>
+                            <th data-field="image" data-formatter="imageProductFormatter">Imagen</th>
+                            <th data-field="title">Título</th>
+                            <th data-field="description">Descripción</th>
+                            <th data-field="price">Precio</th>
+                            <th data-field="available">Disponible</th>
+                            <th data-field="status">Estado</th>
+                            <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateProductFormatter" data-events="operateProductEvents">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->
+
+
+{% endblock %}
+
+           

@@ -16,8 +16,7 @@ from django.contrib.gis.db.models.functions import Distance
 import traceback
 import sys
 
-from markets.models import Category, Market, Telephone
-
+from markets.models import Category, Market, Telephone, Product
 from api.serializers.serializer_markets import CategorySerializer, MarketSerializer, TelephoneSerializer, ProductSerializer
 
 
@@ -133,3 +132,20 @@ class MarketCreateAPIView(APIView):
             error_msg = traceback.format_exc()
             print(error_msg)
             return Response({"success":False, "data": None , "message": error_msg }, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class ProductListAPIView(APIView):
+    """
+    API endpoint for products
+    """
+    def get(self, request, id_market, version, format=None):      
+        """
+        Return a list of market products.
+        """     
+        id_market = int(id_market)
+        
+        queryset = Product.objects.filter(market=id_market).order_by('title')
+        serializer = ProductSerializer(queryset, many=True, context={"request":request})
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

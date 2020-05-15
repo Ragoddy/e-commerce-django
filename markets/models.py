@@ -1,6 +1,7 @@
 # -*- coding: UTF8 -*-
 
 from django.db import models
+from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 
@@ -47,6 +48,12 @@ def product_path(instance, filename):
     filename = UUID + str(file_extension[1])
     return 'images/products/{0}'.format(filename) 
 
+
+def market_path(instance, filename): 
+    UUID = str(uuid.uuid1()).replace("-", "")
+    file_extension = os.path.splitext(filename)
+    filename = UUID + str(file_extension[1])
+    return 'images/markets/{0}'.format(filename) 
 
 # Classes for models
 class Category(models.Model):
@@ -98,6 +105,8 @@ class Market(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     location = models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     categories = models.ManyToManyField('Category')
+    image = models.ImageField(upload_to=market_path, blank=True, null=True)
+    onwer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return str(self.name)

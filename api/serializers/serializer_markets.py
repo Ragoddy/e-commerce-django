@@ -8,12 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('code', 'name', 'description', 'count_markets', 'sorting', 'image')   
 
-
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['pk','title', 'description', 'size', 'price', 'image', 'available']
-        
+       
         
 class TelephoneSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,4 +33,11 @@ class MarketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Market
         fields =('pk','code','name','addresses','longitude', 'latitude', 'location','city','minimum_price', 'status', 'phone_set', 'category_set', 'state', 'minimun_price') 
-        
+
+
+
+class ProductSerializer(serializers.ModelSerializer):    
+    
+    class Meta:
+        model = Product
+        fields = ('pk', 'title', 'description', 'price', 'image', 'available', 'status', 'market')   

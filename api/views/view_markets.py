@@ -145,7 +145,7 @@ class ProductListAPIView(APIView):
         """     
         id_market = int(id_market)
         
-        queryset = Product.objects.filter(market=id_market).order_by('title')
+        queryset = Product.objects.filter(market=id_market).order_by('-creation_date')
         serializer = ProductSerializer(queryset, many=True, context={"request":request})
         
         return Response(serializer.data, status=status.HTTP_200_OK)

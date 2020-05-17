@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Kyper Comidas Rapidas</h1>    
+        <h1 class="h3 mb-0 text-gray-800">Kyper {{market.name |lower|capfirst}}</h1>    
     </div>
     
      <!-- Content Row -->
@@ -14,7 +14,7 @@
             <!-- Collapsable Card Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Información</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Información General</h6>
                 </div>
                 <div class="card-body">
                     <form id="form_product" method="POST" enctype="multipart/form-data">
@@ -22,31 +22,31 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="title">Código</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.code}}" required="required" readonly>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="title">Nombre</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.name}}" required="required" readonly>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="title">Dirección</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.addresses}}" required="required" readonly>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="title">Ciudad</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.city}}" required="required" readonly>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="title">Precio Minimo</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.minimum_price}}" required="required" readonly>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="title">Estado</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required" readonly>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Título" value="{{market.status}}" required="required" readonly>
                             </div>
                         </div>
                     </form>

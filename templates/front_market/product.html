@@ -10,6 +10,21 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-12">
+            {% if request.session.saved and request.session.message %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Bien hecho!</strong> Tu producto se creo correctamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% elif not request.session.saved and request.session.message %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Ups, ocurrio un error!</strong> No se guardo el producto intenta nuevamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
             <!-- Collapsable Card Example -->
             <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
@@ -27,7 +42,7 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="file" name="file" required="required">
                                     <label class="custom-file-label" for="file">Seleccionar Imagen</label>
-                                </div>
+                                </div>  
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="title">Título</label>
@@ -41,7 +56,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="price">Precio</label>
-                                    <input type="text" class="form-control" id="price" name="price" placeholder="Precio" required="required">
+                                    <input type="number" class="form-control" id="price" name="price" placeholder="Precio" required="required">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="stock">Disponibilidad</label>
@@ -70,7 +85,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                    <table  class="table table-bordered" id="dataTableProducts" width="100%" cellspacing="0"
+                    <table  class="table table-bordered table_kypershop" id="dataTableProducts" width="100%" cellspacing="0"
                         data-toggle="table"
                         data-pagination="true"
                         data-search="true"
@@ -78,15 +93,16 @@
                         data-mobile-responsive="true"
                         data-id-field="pk"
                         data-page-list="[10, 25, 50, 100, all]"
-                        data-url="/api/v1/table/products/794/">
+                        data-url="/api/v1/table/products/{{market_id}}/">
                         <thead>
                         <tr>
                             <th data-field="image" data-formatter="imageProductFormatter">Imagen</th>
+                            <th data-field="creation_date" data-formatter="dateProductFormatter">Fecha de Creación</th>
                             <th data-field="title">Título</th>
                             <th data-field="description">Descripción</th>
-                            <th data-field="price">Precio</th>
-                            <th data-field="available">Disponible</th>
-                            <th data-field="status">Estado</th>
+                            <th data-field="price" data-formatter="priceProductFormatter">Precio</th>
+                            <th data-field="available" data-formatter="availableProductFormatter">Stock</th>
+                            <th data-field="status"data-formatter="statusProductFormatter">Estado</th>
                             <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateProductFormatter" data-events="operateProductEvents">Acciones</th>
                         </tr>
                         </thead>

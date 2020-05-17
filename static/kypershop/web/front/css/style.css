@@ -38,6 +38,10 @@
     margin-top: 3rem;
 }
 
+.table_kypershop tbody{
+    font-size: 0.9rem;
+}
+
 
 /* Styles for product */
 .custom_checkbox_stock{

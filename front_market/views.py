@@ -72,7 +72,7 @@ class ProductView(View):
         return render(request, 'front_market/product.html', locals())
     
 
-class OrderView(View):
+class OrderHistoricView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         context = {}
@@ -92,3 +92,11 @@ class KyperView(View):
         market_id = ReturnMarket(request) 
         market = Market.objects.get(id=market_id)
         return render(request, 'front_market/kyper.html', locals())
+
+
+class OrderCreateView(View):
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        market_id = ReturnMarket(request)         
+        name = Market.objects.get(id=market_id).name
+        return render(request, 'front_market/create_order.html', locals())

@@ -42,8 +42,12 @@ class Order(models.Model):
     payment_method = models.IntegerField(default=1, choices=PAYMENT_METHOD_CHOICES)
     status_order = models.IntegerField(default=1, choices=STATUS_ORDER_CHOICES)
     total_price = models.FloatField(default=0)   
-    comments = models.TextField(max_length=500)
-    
+    comments = models.TextField(max_length=500, blank=True, null=True)    
+    domiciliary = models.CharField(max_length=200, blank=True, null=True)
+    address = models.CharField(max_length=200) 
+    complement_address = models.CharField(max_length=200, blank=True, null=True) 
+    name_client = models.CharField(max_length=200) 
+    phone = models.CharField(max_length=200, blank=True, null=True) 
     
     def __str__(self):
         return str(self.type_so)

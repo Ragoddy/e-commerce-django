@@ -33,6 +33,9 @@
 .topbar {
     height: 4rem;
 }
+.text-sm{
+    font-size: 1rem;
+}
 
 .bg_container{
     margin-top: 3rem;
@@ -46,4 +49,44 @@
 /* Styles for product */
 .custom_checkbox_stock{
     margin-top: 0.4rem;
+}
+
+/* Style for products list */
+
+.card_body_product{
+    padding: 1rem;
+    width: 100%;    
+}
+.card_body_product h6{
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card_body_product .card-title{
+    color: gray;
+    font-weight: 600;
+    margin-bottom: .3rem;
+    text-overflow: ellipsis;
+}
+.card_body_product p{
+    font-size:.9rem;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+}
+.card_body_product .btn_add{
+    margin-top: .4rem;
+}
+
+.card_body_image{
+    width: 100%;
+    height: 100%;
+    line-height: 130px;
+}
+.card_body_image img{
+    width: 100px;
+    height: 100px;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: -.7rem;
+    border-radius: 4px;
+    vertical-align: middle;
 }

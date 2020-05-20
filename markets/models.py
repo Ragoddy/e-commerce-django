@@ -135,9 +135,19 @@ class Product(models.Model):
     available = models.IntegerField(default=1, choices=STATUS_CHOICES)
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
+    # product_type = models.ForeignKey("ProductType", verbose_name="ProductType", on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     
     def __str__(self):
         return str(self.title)
     
+
+
+class ProductType(models.Model):
+    name = models.CharField(max_length=200)    
+    available = models.IntegerField(default=1, choices=STATUS_CHOICES)
+    status = models.IntegerField(default=1, choices=STATUS_CHOICES)
+    creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     
+    def __str__(self):
+        return str(self.name)

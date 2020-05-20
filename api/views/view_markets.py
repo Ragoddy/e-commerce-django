@@ -135,7 +135,7 @@ class MarketCreateAPIView(APIView):
 
 
 
-class ProductListAPIView(APIView):
+class ProductListTableAPIView(APIView):
     """
     API endpoint for products
     """
@@ -149,3 +149,20 @@ class ProductListAPIView(APIView):
         serializer = ProductSerializer(queryset, many=True, context={"request":request})
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+
+class ProductListAPIView(APIView):
+    """
+    API endpoint for products
+    """
+    def get(self, request, id_market, version, format=None):      
+        """
+        Return a list of market products.
+        """     
+        id_market = int(id_market)
+        
+        queryset = Product.objects.filter(market=id_market, status=1, available=1).order_by('-creation_date')
+        serializer = ProductSerializer(queryset, many=True, context={"request":request})
+        
+        return Response({"success":True, "data": serializer.data, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)

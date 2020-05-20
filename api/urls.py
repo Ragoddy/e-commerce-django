@@ -9,6 +9,9 @@ urlpatterns = [
     path('markets/<str:longitude>/<str:latitude>/', view_markets.MarketListAPIView.as_view(), name='api-markets-list'),
     path('phones/', view_markets.PhoneCreateAPIView.as_view(), name='api-phones-create'),
     
+    #products
+    path('products/<str:id_market>/', view_markets.ProductListAPIView.as_view(), name='api-product-list-table'),
+    
     #Users
     path('clients/', view_users.ClientCreateAPIView.as_view(), name='api-clients-create'),
     
@@ -17,5 +20,5 @@ urlpatterns = [
     
     #endpoint for tables
     #products
-    path('table/products/<str:id_market>/', view_markets.ProductListAPIView.as_view(), name='api-product-list-table'),
+    path('table/products/<str:id_market>/', view_markets.ProductListTableAPIView.as_view(), name='api-product-list-table'),
 ]

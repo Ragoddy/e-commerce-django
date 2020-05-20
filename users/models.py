@@ -85,3 +85,4 @@ class Client(models.Model):
     @property
     def latitude(self):
         return self.location.y
+    

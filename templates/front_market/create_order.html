@@ -1,0 +1,226 @@
+{% extends "front_market/base.html" %}
+
+{% load static %}
+{% block body %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h2 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}<br>
+            <small class="text-sm">Aca puedes crear un pedido si lo recibes presencial o por otro medio de comunicación (Llamadas, Whatsapp, etc..)</small>
+        </h2>  
+        <button id="btn_complete_order" class="d-none d-sm-inline-block btn btn-danger shadow-sm" style="visibility:hidden;">
+            <i class="fas fa-cart-plus"></i> 3 productos - Completar Pedido
+        </button>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="products_markert" class="row d-flex flex-row flex-wrap align-content-start bd-highlight mb-3">
+                    
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<!-- Complete Order modal -->
+<div id="modal_order" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Completar Pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form_kyper" method="POST">
+                <div class="modal-body">     
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Nombre Cliente</label>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Número de Contacto</label>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Dirección</label>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Complemento <small>(Conjunto, torre, Apartamento) Opcional</small></label>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <input type="hidden" class="form-control" id="products" name="products">
+                                    <table id="table_products_list" class="table table-sm">
+                                        <thead class="thead-light">
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Precio</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                          </tr>
+                                         
+                                        </tbody>
+                                    </table>
+                                    <p id="text_total_price" class="text-right">Total: $15.000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="pay_method">Medio de Pago</label>
+                                            <select class="form-control" id="pay_method">
+                                                <option value="1" selected>Efectivo</option>
+                                                <option value="2">Datafono</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="coments">Comentarios <small> Opcional</small></label>
+                                            <input type="text" class="form-control" id="coments" name="coments" placeholder="Comentarios">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-danger">Completar</button>
+                </div>
+            </form>     
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block js_custom %}
+
+<script>
+    var $btn_complete_order = $("#btn_complete_order");
+    var $table_products_list = $("#table_products_list");
+    var $products_markert = $("#products_markert");
+    var $text_total_price = $("#text_total_price");
+    var count_products = 0
+    var total_price = 0
+    var products_list = []
+    var products_order_list = []
+
+    $(document).ready(function() {      
+
+        $.busyLoadSetup({ animation: "slide", spinner: "circles", background: "rgba(217, 214, 213, 0.86)" });
+        $.busyLoadFull("show");
+
+        $.get( "/api/v1/products/{{market_id}}", function( data ) {            
+            if(data.success){
+                var data = data.data;
+                products_list = data;
+                $products_markert.empty();
+                $.each(data, function( key, value ) {
+                    var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(value.price)
+                    $products_markert.append( '<div class="item_flex_market p-2 bd-highlight col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">'+
+                        '<div class="card border-bottom">'+
+                            '<div class="row no-gutters">'+                                            
+                                '<div class="col-7 col-sm-8 col-md-8 col-lg-9">'+
+                                    '<div class="card_body_product">'+
+                                        '<h6 class="card-title">' + value.title +'</h6>'+
+                                        '<p class="card-text">'+ value.description +'</p>'+
+                                        '<p class="card-text"><small class="text-muted">$ '+ number +'</small></p>'+  
+                                        '<button class="btn_add btn btn-outline-danger btn-sm" data-id="'+ value.pk +'" '+
+                                        'onclick="myFunction(this,'+ value.pk +')">Agregar</button>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<div class="col-5 col-sm-4 col-md-4 col-lg-3">'+
+                                    '<div class="card_body_image">'+
+                                        '<img src="'+ value.image +'" alt="kypershop"> '+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>');
+                });
+            }
+
+            $.busyLoadFull("hide");
+        }); 
+        
+        
+        $btn_complete_order.on("click", function() {
+            total_price = 0
+            $table_products_list.empty();
+            $table_products_list.append('<tr><th scope="col">#</th><th scope="col">Producto</th><th scope="col">Precio</th></tr>');
+            $.each(products_order_list, function( key, value ) {
+                $.each(products_list, function( key1, value1 ) {
+                    if(value == value1.pk){
+                        total_price = total_price + parseFloat(value1.price);
+                        var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(value1.price)
+                        $table_products_list.append('<tr><th scope="row">1</th><td>' + value1.title + '</td><td>' + number + '</td></tr>');
+                    }
+                });
+            });
+
+            var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(total_price)
+            $text_total_price.html("Total: $" + number);
+            $('#modal_order').modal('show');
+        });
+       
+    });
+
+    function myFunction(element, id){
+        
+        alertify.success('Producto Agregado', 2); 
+
+        products_order_list.push(id);
+
+        if(count_products == 0){
+            count_products ++;
+            $btn_complete_order.html('<i class="fas fa-cart-plus"></i> ' + count_products + ' Productos - Completar Pedido')
+            $btn_complete_order.css("visibility","visible");
+            
+        }else{
+            $btn_complete_order.html('<i class="fas fa-cart-plus"></i> ' + count_products + ' Productos - Completar Pedido')
+        }
+
+        count_products ++;
+        
+    }
+
+    
+</script> 
+
+{% endblock %}
+
+           

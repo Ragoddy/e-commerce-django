@@ -6,75 +6,80 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}</h1>    
+        <a href="{% url "create_order_markets" %}" class="d-none d-sm-inline-block btn btn-danger shadow-sm"> <i class="fas fa-cart-plus"></i> Crear Pedido</a>
     </div>
     <!-- Content Row -->
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Productos</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{products}}</div>
-                </div>
-                <div class="col-auto">
-                <i class="fas fa-tags fa-2x text-gray-300"></i>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders}}</div>
-                </div>
-                <div class="col-auto">
-                <i class="fas fa-cash-register fa-2x text-gray-300"></i>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Promociones</div>
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
-                        </div>
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Productos</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{products}}</div>
+                    </div>
+                    <div class="col-auto">
+                    <i class="fas fa-tags fa-2x text-gray-300"></i>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                 </div>
             </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders}}</div>
+                    </div>
+                    <div class="col-auto">
+                    <i class="fas fa-cash-register fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Promociones</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
         <!-- Pending Requests Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mi Kyper</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-store fa-2x text-gray-300"></i>
+                        <i class="fas fa-shopping-bag fa-2x text-gray-300"></i>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -87,65 +92,32 @@
                     <h6 class="m-0 font-weight-bold text-primary">Recepción de pedidos</h6>
                 </div>
                 <div class="card-body">
+                    
                     <div class="table-responsive">
-                    <table class="table table-bordered table_kypershop" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Productos</th>
-                            <th>Valor a pagar</th>
-                            <th>Medio de pago</th>
-                            <th>Cliente</th>
-                            <th>Direccion</th>
-                            <th>Teléfono</th>
-                            <th>Estados</th>
-                            <th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <table  class="table table-bordered table_kypershop" id="dataTableProducts" width="100%" cellspacing="0"
+                            data-toggle="table"
+                            data-pagination="true"
+                            data-search="true"
+                            data-show-refresh="true"
+                            data-mobile-responsive="true"
+                            data-id-field="pk"
+                            data-page-list="[10, 25, 50, 100, all]"
+                            data-url="/api/v1/table/products/{{market_id}}/">
+                            <thead>
+                            <tr>
+                                <th data-field="image" data-formatter="imageProductFormatter">Imagen</th>
+                                <th data-field="creation_date" data-formatter="dateProductFormatter">Fecha de Creación</th>
+                                <th data-field="title">Título</th>
+                                <th data-field="description">Descripción</th>
+                                <th data-field="price" data-formatter="priceProductFormatter">Precio</th>
+                                <th data-field="available" data-formatter="availableProductFormatter">Stock</th>
+                                <th data-field="status"data-formatter="statusProductFormatter">Estado</th>
+                                <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateProductFormatter" data-events="operateProductEvents">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

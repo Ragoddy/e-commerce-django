@@ -49,8 +49,8 @@ function dateProductFormatter(value, row) {
     return moment(value).format('DD/MM/YYYY HH:mm');
 }
 
-$(document).ready(function() {
-    
+$(document).ready(function() {    
+
    
 });
   

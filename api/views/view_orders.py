@@ -27,3 +27,21 @@ class OrderCreateAPIView(APIView):
             serializer.save()
             return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)
         return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class OrdersListTableAPIView(APIView):
+    """
+    API endpoint for orders
+    """
+    def get(self, request, id_market, version, format=None):      
+        """
+        Return a list of orders.
+        """     
+        id_market = int(id_market)
+        
+        queryset = Order.objects.filter(market=id_market).order_by('-creation_date')
+        serializer = OrderSerializer(queryset, many=True, context={"request":request})
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    

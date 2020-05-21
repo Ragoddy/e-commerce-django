@@ -21,4 +21,5 @@ urlpatterns = [
     #endpoint for tables
     #products
     path('table/products/<str:id_market>/', view_markets.ProductListTableAPIView.as_view(), name='api-product-list-table'),
+     path('table/orders/<str:id_market>/', view_orders.OrdersListTableAPIView.as_view(), name='api-order-list-table'),
 ]

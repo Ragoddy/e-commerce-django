@@ -36,6 +36,7 @@ STATUS_CHOICES = [
 
 
 class Order(models.Model):
+    UUID = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     type_so = models.IntegerField(default=1, choices=ORDER_CHOICES)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     market = models.ForeignKey("markets.Market", verbose_name="Market_Order", on_delete=models.CASCADE)

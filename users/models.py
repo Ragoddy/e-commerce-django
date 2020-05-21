@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
 
 class Client(models.Model):
-    UUID = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
+    UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     location = models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)        

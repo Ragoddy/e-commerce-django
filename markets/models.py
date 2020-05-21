@@ -126,6 +126,14 @@ class Market(models.Model):
             telephone = Telephone.objects.filter(market = self.id)[0]
         return str(telephone)
 
+    def set_pk(self):
+        self.UUID = uuid.uuid4()
+
+    def save(self, *args, **kwargs):
+        if self.UUID is None:
+            self.set_pk()
+            super(Market, self).save(*args, **kwargs)
+
 class Product(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=500, blank=True, null=True)

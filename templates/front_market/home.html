@@ -32,7 +32,7 @@
                 <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos Activos</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders}}</div>
                     </div>
                     <div class="col-auto">
@@ -94,26 +94,24 @@
                 <div class="card-body">
                     
                     <div class="table-responsive">
-                        <table  class="table table-bordered table_kypershop" id="dataTableProducts" width="100%" cellspacing="0"
+                        <table  class="table table-bordered table_kypershop" id="dataTableOrders" width="100%" cellspacing="0"
                             data-toggle="table"
                             data-pagination="true"
                             data-search="true"
                             data-show-refresh="true"
                             data-mobile-responsive="true"
-                            data-id-field="pk"
+                            data-id-field="UUID"
                             data-page-list="[10, 25, 50, 100, all]"
-                            data-url="/api/v1/table/products/{{market_id}}/">
+                            data-url="/api/v1/table/orders/{{market_id}}/">
                             <thead>
                             <tr>
-                                <th data-field="image" data-formatter="imageProductFormatter">Imagen</th>
-                                <th data-field="creation_date" data-formatter="dateProductFormatter">Fecha de Creación</th>
-                                <th data-field="title">Título</th>
-                                <th data-field="description">Descripción</th>
-                                <th data-field="price" data-formatter="priceProductFormatter">Precio</th>
-                                <th data-field="available" data-formatter="availableProductFormatter">Stock</th>
-                                <th data-field="status"data-formatter="statusProductFormatter">Estado</th>
-                                <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateProductFormatter" data-events="operateProductEvents">Acciones</th>
-                            </tr>
+                                <th data-field="creation_date" >Fecha</th>
+                                <th data-field="total_price" >Valor total</th>
+                                <th data-field="payment_method" >Medio de pago</th>
+                                <th data-field="name_client" >Cliente</th>
+                                <th data-field="address" >Direccion</th>
+                                <th data-field="phone" >Teléfono</th>
+                                <th data-field="status_order" >Estado</th>
                             </thead>
                             <tbody>
                             </tbody>

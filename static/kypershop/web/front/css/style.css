@@ -45,6 +45,10 @@
     font-size: 0.9rem;
 }
 
+.modal-body{
+    background-color: #f8f9fc;
+}
+
 
 /* Styles for product */
 .custom_checkbox_stock{
@@ -89,4 +93,13 @@
     margin-left: -.7rem;
     border-radius: 4px;
     vertical-align: middle;
+}
+
+/* Styles for orders */
+
+.total_text{
+    font-weight: bold;
+    margin-right: .5rem;
+    font-size: 1.2rem;
+    margin-bottom: 0rem;
 }

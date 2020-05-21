@@ -33,86 +33,89 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_kyper" method="POST">
+            <form id="form_order" method="POST">
+                {% csrf_token %} 
                 <div class="modal-body">     
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="title">Nombre Cliente</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="name_client">Nombre Cliente</label>
+                                                <input type="text" class="bg-gray-100 form-control" id="name_client" name="name_client" placeholder="Nombre Cliente" required="required">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="phone">Número de Contacto</label>
+                                                <input type="tel" class="bg-gray-100 form-control" id="phone" name="phone" placeholder="000-000-0000" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required="required">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="title">Número de Contacto</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="title">Dirección</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título" required="required">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="title">Complemento <small>(Conjunto, torre, Apartamento) Opcional</small></label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Título">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <input type="hidden" class="form-control" id="products" name="products">
-                                    <table id="table_products_list" class="table table-sm">
-                                        <thead class="thead-light">
-                                          <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Producto</th>
-                                            <th scope="col">Precio</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                          </tr>
-                                         
-                                        </tbody>
-                                    </table>
-                                    <p id="text_total_price" class="text-right">Total: $15.000</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="pay_method">Medio de Pago</label>
-                                            <select class="form-control" id="pay_method">
-                                                <option value="1" selected>Efectivo</option>
-                                                <option value="2">Datafono</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="coments">Comentarios <small> Opcional</small></label>
-                                            <input type="text" class="form-control" id="coments" name="coments" placeholder="Comentarios">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="address">Dirección</label>
+                                                <input type="text" class="bg-gray-100 form-control" id="address" name="address" placeholder="Dirección" required="required">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="complement_address">Complemento <small>(Conjunto, torre, Apartamento) Opcional</small></label>
+                                                <input type="text" class="bg-gray-100 form-control" id="complement_address" name="complement_address" placeholder="Complemento">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input type="hidden" class="form-control" id="products" name="products">
+                                        <table id="table_products_list" class="table table-striped table-sm">
+                                            <thead class="thead-light">
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Precio</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                              </tr>
+                                             
+                                            </tbody>
+                                        </table>
+                                        <p id="text_total_price" class="total_text text-right">Total: $15.000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="pay_method">Medio de Pago</label>
+                                                <select class="bg-gray-100 form-control" id="payment_method" name="payment_method">
+                                                    <option value="1" selected>Efectivo</option>
+                                                    <option value="2">Datafono</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="comments">Comentarios <small> Opcional</small></label>
+                                                <input type="text" class="bg-gray-100 form-control" id="comments" name="comments" placeholder="Comentarios">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -129,11 +132,12 @@
 
 {% block js_custom %}
 
-<script>
+<script type="text/javascript">
     var $btn_complete_order = $("#btn_complete_order");
     var $table_products_list = $("#table_products_list");
     var $products_markert = $("#products_markert");
     var $text_total_price = $("#text_total_price");
+    var $products = $("#products");
     var count_products = 0
     var total_price = 0
     var products_list = []
@@ -141,8 +145,13 @@
 
     $(document).ready(function() {      
 
-        $.busyLoadSetup({ animation: "slide", spinner: "circles", background: "rgba(217, 214, 213, 0.86)" });
-        $.busyLoadFull("show");
+        $.busyLoadFull("show",{ 
+            animation: "slide",
+            spinner: "circles", 
+            text: "Cargando productos, Por favor espere...", 
+            background: "rgba(0, 51, 101, 0.7)",
+            fontSize: "1.6rem"
+        }); 
 
         $.get( "/api/v1/products/{{market_id}}", function( data ) {            
             if(data.success){
@@ -150,7 +159,7 @@
                 products_list = data;
                 $products_markert.empty();
                 $.each(data, function( key, value ) {
-                    var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(value.price)
+                    var number = new Intl.NumberFormat().format(value.price)
                     $products_markert.append( '<div class="item_flex_market p-2 bd-highlight col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">'+
                         '<div class="card border-bottom">'+
                             '<div class="row no-gutters">'+                                            
@@ -160,7 +169,7 @@
                                         '<p class="card-text">'+ value.description +'</p>'+
                                         '<p class="card-text"><small class="text-muted">$ '+ number +'</small></p>'+  
                                         '<button class="btn_add btn btn-outline-danger btn-sm" data-id="'+ value.pk +'" '+
-                                        'onclick="myFunction(this,'+ value.pk +')">Agregar</button>'+
+                                        'onclick="addProduct(this,'+ value.pk +')">Agregar</button>'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="col-5 col-sm-4 col-md-4 col-lg-3">'+
@@ -181,25 +190,40 @@
         $btn_complete_order.on("click", function() {
             total_price = 0
             $table_products_list.empty();
-            $table_products_list.append('<tr><th scope="col">#</th><th scope="col">Producto</th><th scope="col">Precio</th></tr>');
+            $table_products_list.append('<tr><th style="width: 10%" scope="col">#</th><th style="width: 70%" '+
+                'scope="col">Producto</th><th style="width: 20%" scope="col">Precio</th></tr>');
             $.each(products_order_list, function( key, value ) {
                 $.each(products_list, function( key1, value1 ) {
                     if(value == value1.pk){
                         total_price = total_price + parseFloat(value1.price);
-                        var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(value1.price)
-                        $table_products_list.append('<tr><th scope="row">1</th><td>' + value1.title + '</td><td>' + number + '</td></tr>');
+                        var number = new Intl.NumberFormat().format(value1.price)
+                        $table_products_list.append('<tr><th scope="row">1</th><td>' + value1.title + '</td><td>$' + number + '</td></tr>');
                     }
                 });
             });
 
-            var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(total_price)
+            $products.val(products_order_list);
+            var number = new Intl.NumberFormat().format(total_price)
             $text_total_price.html("Total: $" + number);
             $('#modal_order').modal('show');
         });
+
+
+        $("#form_order").submit(function(event) { 
+            $.busyLoadFull("show",{ 
+                animation: "slide",
+                spinner: "circles", 
+                text: "Creando Pedido, Por favor espere...", 
+                background: "rgba(0, 51, 101, 0.7)",
+                fontSize: "1.6rem"
+            });            
+            return true;
+            
+        });  
        
     });
 
-    function myFunction(element, id){
+    function addProduct(element, id){
         
         alertify.success('Producto Agregado', 2); 
 

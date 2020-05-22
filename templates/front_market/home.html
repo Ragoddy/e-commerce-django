@@ -1,126 +1,211 @@
 {% extends "front_market/base.html" %}
- 
+
+
+{% block extra_head %}
+    {{ form.media }}
+{% endblock %}
 {% block body %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}</h1>    
-        <a href="{% url "create_order_markets" %}" class="d-none d-sm-inline-block btn btn-danger shadow-sm"> <i class="fas fa-cart-plus"></i> Crear Pedido</a>
-    </div>
-    <!-- Content Row -->
-    <div class="row">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Productos</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{products}}</div>
-                    </div>
-                    <div class="col-auto">
-                    <i class="fas fa-tags fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-                </div>
-            </div>
+
+    {% if market_id > 0 %}
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}</h1>    
+            <a href="{% url "create_order_markets" %}" class="d-none d-sm-inline-block btn btn-danger shadow-sm"> <i class="fas fa-cart-plus"></i> Crear Pedido</a>
         </div>
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos Activos</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders}}</div>
-                    </div>
-                    <div class="col-auto">
-                    <i class="fas fa-cash-register fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Promociones</div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
-                            </div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Productos</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{products_count}}</div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-tags fa-2x text-gray-300"></i>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                 </div>
-                </div>
             </div>
-        </div>
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mi Kyper</div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos Activos</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders_count}}</div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-cash-register fa-2x text-gray-300"></i>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-shopping-bag fa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Promociones</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Content Row -->
-
-    <div class="row">
-        <div class="col-md-12"> 
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Recepción de pedidos</h6>
-                </div>
-                <div class="card-body">
-                    
-                    <div class="table-responsive">
-                        <table  class="table table-bordered table_kypershop" id="dataTableOrders" width="100%" cellspacing="0"
-                            data-toggle="table"
-                            data-pagination="true"
-                            data-search="true"
-                            data-show-refresh="true"
-                            data-mobile-responsive="true"
-                            data-id-field="UUID"
-                            data-page-list="[10, 25, 50, 100, all]"
-                            data-url="/api/v1/table/orders/{{market_id}}/">
-                            <thead>
-                            <tr>
-                                <th data-field="creation_date" >Fecha</th>
-                                <th data-field="total_price" >Valor total</th>
-                                <th data-field="payment_method" >Medio de pago</th>
-                                <th data-field="name_client" >Cliente</th>
-                                <th data-field="address" >Direccion</th>
-                                <th data-field="phone" >Teléfono</th>
-                                <th data-field="status_order" >Estado</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mi Kyper</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-shopping-bag fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-md-12"> 
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Recepción de pedidos</h6>
+                    </div>
+                    <div class="card-body">                        
+                        <div class="table-responsive">
+                            <table  class="table table-bordered table_kypershop" id="dataTableOrders" width="100%" cellspacing="0"
+                                data-toggle="table"
+                                data-pagination="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-mobile-responsive="true"
+                                data-id-field="UUID"
+                                data-page-list="[10, 25, 50, 100, all]"
+                                data-url="/api/v1/table/orders/{{market_id}}/">
+                                <thead>
+                                <tr>
+                                    <th data-field="creation_date"  data-formatter="dateOrderFormatter">Fecha</th>
+                                    <th data-field="total_price"  data-formatter="totalPriceOrderFormatter">Valor total</th>
+                                    <th data-field="payment_method"  data-formatter="payMethodOrderFormatter" >Medio de pago</th>
+                                    <th data-field="name_client" >Cliente</th>
+                                    <th data-field="address" >Direccion</th>
+                                    <th data-field="phone" >Teléfono</th>
+                                    <th data-field="status_order"  data-formatter="statusOrderFormatter">Estado</th>
+                                    <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateOrderFormatter" data-events="operateOrderEvents">Acciones</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Hola {{user}}</h1>    
+        </div>
+        
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Collapsable Card Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Para poder inciar a recibir pedidos con kypershop 
+                                debes crear tu comercio, por favor diligencia los campos que se encuentran a continuación</h6>
+                    </div>
+                    <div class="card-body">
+                        <form id="form_kyper" class="user" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}                              
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="file">Seleccionar Imagen <small>Opcional- dimensiones 1300x498 px</small></label>
+                                    <div class="custom-file">
+                                        <input type="file" class="bg-gray-100 form-control form-control-user custom-file-input" id="file" name="file">
+                                        <label class="custom-file-label" for="file">Seleccionar Imagen</label>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="form-row">                                
+                                <div class="form-group col-md-6">
+                                    <label for="title">Nombre del comercio</label>
+                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="name" name="name" placeholder="Nombre del comercio" autofocus="autofocus" required="required">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="title">Precio Minimo</label>
+                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="price" name="price" placeholder="Precio Minimo" pattern="[0-9]" required="required">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="title">Dirección</label>
+                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="address" name="address" placeholder="Dirección"  required="required">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="title">Ciudad</label>
+                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="city" name="city" placeholder="Ciudad"  required="required">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="title">Seleccionar Categoria</label>
+                                    <select class="bg-gray-100 form-control" id="category" name="category">
+                                        {% for category in categories %}
+                                            <option value="{{category.id}}">{{category.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="title">Teléfono</label>
+                                    <input type="tel" class="bg-gray-100 form-control form-control-user" id="phone" name="phone" placeholder="0000000000" pattern="[0-9]{10}" required="required">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-row justify-content-md-center">
+                                <div class="form-group col-md-auto">
+                                    {{ form.as_p }}
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-row justify-content-md-center">
+                                <div class="form-group col-md-6">
+                                    <button type="submit" class="btn btn-danger btn-block">Crear Kyper</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+    
 </div>
 <!-- /.container-fluid -->
 

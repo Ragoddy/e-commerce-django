@@ -21,15 +21,25 @@
               <div class="p-5">
                 <div class="text-center">
                   <h1 class="h3 text-gray-900 mb-4">{% trans "Sign Up" %}</h1>
-                </div>
-                
-
-                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                </div>              
+                <form class="signup user" id="signup_form" method="post" action="{% url 'account_signup' %}">
                   {% csrf_token %}
-                  {{ form.as_p }}
+                  <div class="form-group">
+                    <label for="id_email">Correo electronico</label>
+                    <input type="email" class="bg-gray-100 form-control form-control-user" id="id_email" name="email" aria-describedby="emailHelp" placeholder="Ingrese su email" autofocus="autofocus" required="required">
+                  </div>
+                  <div class="form-group">
+                    <label for="id_password1">Contraseña</label>
+                    <input type="password" class="bg-gray-100 form-control form-control-user" id="id_password1" name="password1" placeholder="Ingrese su Contraseña" required="required">
+                  </div>
+                  <div class="form-group">
+                    <label for="id_password2">Contraseña (de nuevo):</label>
+                    <input type="password" class="bg-gray-100 form-control form-control-user" id="id_password2" name="password2" placeholder="Confirmar Contraseña" required="required">
+                  </div>
                   {% if redirect_field_value %}
                   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                   {% endif %}
+                  <br/>
                   <button type="submit" class="btn btn-primary btn-user btn-block primaryAction">{% trans "Sign Up" %} &raquo;</button>
                 </form>                
                 <hr>  

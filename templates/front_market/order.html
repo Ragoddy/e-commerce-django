@@ -16,66 +16,31 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Pedidos Gestionados</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body">                        
                     <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Productos</th>
-                            <th>Valor a pagar</th>
-                            <th>Medio de pago</th>
-                            <th>Cliente</th>
-                            <th>Direccion</th>
-                            <th>Teléfono</th>
-                            <th>Estados</th>
-                            <th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>01/01/2020</td>
-                            <td>08:35 am</td>
-                            <td>Hamburguesa, perro, gaseosa</td>
-                            <td>$ 15.600</td>
-                            <td>Efectivo</td>
-                            <td>Freddy Gomez</td>
-                            <td>Calle 128 no 52 96</td>
-                            <td>3214567898</td>
-                            <td>Nuevo</td>
-                            <td>botones</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <table  class="table table-bordered table_kypershop" id="dataTableOrders" width="100%" cellspacing="0"
+                            data-toggle="table"
+                            data-pagination="true"
+                            data-search="true"
+                            data-show-refresh="true"
+                            data-mobile-responsive="true"
+                            data-id-field="UUID"
+                            data-page-list="[10, 25, 50, 100, all]"
+                            data-url="/api/v1/table/orders/{{market_id}}/">
+                            <thead>
+                            <tr>
+                                <th data-field="creation_date"  data-formatter="dateOrderFormatter">Fecha</th>
+                                <th data-field="total_price"  data-formatter="totalPriceOrderFormatter">Valor total</th>
+                                <th data-field="payment_method"  data-formatter="payMethodOrderFormatter" >Medio de pago</th>
+                                <th data-field="name_client" >Cliente</th>
+                                <th data-field="address" >Direccion</th>
+                                <th data-field="phone" >Teléfono</th>
+                                <th data-field="status_order"  data-formatter="statusOrderFormatter">Estado</th>
+                                <th data-field="operate" data-halign="center" data-align="center" data-formatter="operateOrderFormatter" data-events="operateOrderEvents">Acciones</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

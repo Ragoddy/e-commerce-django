@@ -8,10 +8,10 @@ from django.db import transaction
 import json
 
 #import models
-from markets.models import Market, Product
+from markets.models import Market, Product, Category
 from orders.models import Order, ProductByOrder
 
-from markets.forms import ProductForm
+from markets.forms import ProductForm, MarketForm
 from orders.forms import OrderForm
 
 def ReturnMarket(request):
@@ -27,14 +27,17 @@ class HomeView(View):
         orders_count = 0
         products_count = 0        
         market_id = ReturnMarket(request)          
+        name = None
         
-        name = Market.objects.get(id=market_id).name
+        form = MarketForm()
+        categories = Category.objects.all().order_by('sorting')
+        
+        if market_id > 0:
+            name = Market.objects.get(id=market_id).name
         products_count = Product.objects.filter(market=market_id).count()
-        orders_count = Order.objects.filter(market=market_id).count()
+        orders_count = Order.objects.filter(market=market_id).count()        
         
-        context = {"orders": orders_count, "products": products_count, "name": name, "market_id": market_id}
-        
-        return render(request, 'front_market/home.html', context)
+        return render(request, 'front_market/home.html', locals())
 
 
 class ProductView(View):
@@ -42,8 +45,12 @@ class ProductView(View):
     def get(self, request, *args, **kwargs):
         request.session['message'] = False
         request.session['saved'] = False        
-        market_id = ReturnMarket(request)        
-        return render(request, 'front_market/product.html', locals())
+        market_id = ReturnMarket(request)    
+        if market_id > 0:                
+            return render(request, 'front_market/product.html', locals())
+        else:
+            return HttpResponseRedirect("/web/markets/")
+            
     
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -78,31 +85,50 @@ class ProductView(View):
 class OrderHistoricView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        context = {}
-        return render(request, 'front_market/order.html', context)
+        market_id = ReturnMarket(request) 
+                
+        if market_id > 0:     
+            return render(request, 'front_market/order.html', locals())
+        else:
+            return HttpResponseRedirect("/web/markets/")
     
     
 class PromoView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        context = {}
-        return render(request, 'front_market/promo.html', context)
+        market_id = ReturnMarket(request) 
+        
+        if market_id > 0:     
+            return render(request, 'front_market/promo.html', context)
+        else:
+            return HttpResponseRedirect("/web/markets/")
     
 
 class KyperView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
-        market = Market.objects.get(id=market_id)
-        return render(request, 'front_market/kyper.html', locals())
+        
+        if market_id > 0:     
+            market = Market.objects.get(id=market_id)           
+            return render(request, 'front_market/kyper.html', locals())
+        else:
+            return HttpResponseRedirect("/web/markets/")
+        
 
 
 class OrderCreateView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        market_id = ReturnMarket(request)         
-        name = Market.objects.get(id=market_id).name
-        return render(request, 'front_market/create_order.html', locals())
+        market_id = ReturnMarket(request) 
+        name = None        
+        
+        if market_id > 0:     
+            name = Market.objects.get(id=market_id).name
+            return render(request, 'front_market/create_order.html', locals())
+        else:
+            return HttpResponseRedirect("/web/markets/")
+        
     
     @method_decorator(login_required)
     @transaction.atomic

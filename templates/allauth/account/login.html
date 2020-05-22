@@ -23,15 +23,15 @@
                 <div class="text-center">
                   <h1 class="h3 text-gray-900 mb-4">Bienvenid@ a Kypershop</h1>
                 </div>
-                <form class="login" method="POST" action="{% url 'account_login' %}">
+                <form class="login user" method="POST" action="{% url 'account_login' %}">
                   {% csrf_token %}
                   <div class="form-group">
                     <label for="id_login">Ingrese su email</label>
-                    <input type="email" class="form-control form-control-user" id="id_login" name="login" aria-describedby="emailHelp" placeholder="Ingrese su email" autofocus="autofocus" required="required">
+                    <input type="email" class="bg-gray-100 form-control form-control-user" id="id_login" name="login" aria-describedby="emailHelp" placeholder="Ingrese su email" autofocus="autofocus" required="required">
                   </div>
                   <div class="form-group">
                   <label for="id_password">Ingrese su contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password" name="password" placeholder="Ingrese su Contraseña" required="required">
+                    <input type="password" class="bg-gray-100 form-control form-control-user" id="id_password" name="password" placeholder="Ingrese su Contraseña" required="required">
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">

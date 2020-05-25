@@ -8,6 +8,8 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos import Point
@@ -39,6 +41,8 @@ class PhoneCreateAPIView(APIView):
     """
     API endpoint for create phones for markets app
     """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request, version, format=None):
         serializer = TelephoneSerializer(data=request.data)
         if serializer.is_valid():
@@ -69,7 +73,7 @@ class MarketListAPIView(APIView):
             queryset_category = market.categories.all()
             serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request})        
             
-            queryset_products = market.products.filter(market = market.id)
+            queryset_products = Product.objects.filter(market=market.id, status=1).order_by('-creation_date')
             serializer_products = ProductSerializer(queryset_products, many=True)      
             
             obj ={
@@ -139,6 +143,7 @@ class ProductListTableAPIView(APIView):
     """
     API endpoint for products
     """
+    
     def get(self, request, id_market, version, format=None):      
         """
         Return a list of market products.
@@ -155,14 +160,16 @@ class ProductListTableAPIView(APIView):
 class ProductListAPIView(APIView):
     """
     API endpoint for products
-    """
+    """    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, id_market, version, format=None):      
         """
         Return a list of market products.
         """     
         id_market = int(id_market)
         
-        queryset = Product.objects.filter(market=id_market, status=1, available=1).order_by('-creation_date')
+        queryset = Product.objects.filter(market=id_market, status=1).order_by('-creation_date')
         serializer = ProductSerializer(queryset, many=True, context={"request":request})
         
         return Response({"success":True, "data": serializer.data, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)

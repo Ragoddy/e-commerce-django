@@ -5,6 +5,10 @@ from django.views.generic import View, ListView, FormView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db import transaction
+
+from rest_framework.authtoken.models import Token
+
+
 import json
 
 #import models
@@ -21,12 +25,21 @@ def ReturnMarket(request):
         market = 0
     return market
 
+def ReturnToken(request):
+    try:
+        token = Token.objects.get(user_id = request.user.id).key
+    except Token.DoesNotExist:
+        token = 0
+    return token
+
 class HomeView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):        
         orders_count = 0
-        products_count = 0        
-        market_id = ReturnMarket(request)          
+        products_count = 0      
+        orders_historic_count = 0   
+        market_id = ReturnMarket(request)   
+        token = ReturnToken(request)        
         name = None
         
         form = MarketForm()
@@ -34,8 +47,11 @@ class HomeView(View):
         
         if market_id > 0:
             name = Market.objects.get(id=market_id).name
-        products_count = Product.objects.filter(market=market_id).count()
-        orders_count = Order.objects.filter(market=market_id).exclude(status_order__in=[0,3]).count()        
+        products_count = Product.objects.filter(market=market_id).count()     
+        
+        queryset_order = Order.objects.filter(market=market_id);
+        orders_count = queryset_order.exclude(status_order__in=[0,3]).count()        
+        orders_historic_count = queryset_order.exclude(status_order__in=[1,2]).count()     
         
         return render(request, 'front_market/home.html', locals())
 
@@ -45,7 +61,8 @@ class ProductView(View):
     def get(self, request, *args, **kwargs):
         request.session['message'] = False
         request.session['saved'] = False        
-        market_id = ReturnMarket(request)    
+        market_id = ReturnMarket(request) 
+        token = ReturnToken(request)      
         if market_id > 0:                
             return render(request, 'front_market/product.html', locals())
         else:
@@ -55,6 +72,7 @@ class ProductView(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
+        token = ReturnToken(request)   
         request.session['message'] = True        
         stock = 0
         data = request.POST        
@@ -86,7 +104,7 @@ class OrderHistoricView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
-                
+        token = ReturnToken(request)   
         if market_id > 0:     
             return render(request, 'front_market/order.html', locals())
         else:
@@ -97,9 +115,9 @@ class PromoView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
-        
+        token = ReturnToken(request)   
         if market_id > 0:     
-            return render(request, 'front_market/promo.html', context)
+            return render(request, 'front_market/promo.html', locals())
         else:
             return HttpResponseRedirect("/web/markets/")
     
@@ -108,7 +126,7 @@ class KyperView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
-        
+        token = ReturnToken(request)   
         if market_id > 0:     
             market = Market.objects.get(id=market_id)           
             return render(request, 'front_market/kyper.html', locals())
@@ -121,6 +139,7 @@ class OrderCreateView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         market_id = ReturnMarket(request) 
+        token = ReturnToken(request)   
         name = None        
         
         if market_id > 0:     
@@ -133,7 +152,7 @@ class OrderCreateView(View):
     @method_decorator(login_required)
     @transaction.atomic
     def post(self, request, *args, **kwargs):
-        market_id = ReturnMarket(request)
+        market_id = ReturnMarket(request) 
         total_price = 0
         products = []
         data = request.POST        

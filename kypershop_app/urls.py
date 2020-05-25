@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from rest_framework.authtoken import views 
 
 
 schema_view = get_schema_view(
@@ -37,14 +38,20 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     
-    #WEB
+    #ADMIN
     path('administrator_app/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),    
+    
+    #WEB
     path('', include('landing.urls')),
     path('search/', include('front.urls')),
-    path('web/markets/', include('front_market.urls')),
+    path('web/markets/', include('front_market.urls')),   
+    
     
     #API
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('api-token-auth/', views.obtain_auth_token, name='api-tokn-auth'),
     re_path('api/(?P<version>(v1))/', include('api.urls')),
 ]
 

@@ -5,6 +5,8 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
+    <input type="hidden" id="id_market" value="{{market_id}}">
+    <input type="hidden" id="token" value="{{token}}">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h2 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}<br>
             <small class="text-sm">Aca puedes crear un pedido si lo recibes presencial o por otro medio de comunicación (Llamadas, Whatsapp, etc..)</small>
@@ -138,6 +140,8 @@
     var $products_markert = $("#products_markert");
     var $text_total_price = $("#text_total_price");
     var $products = $("#products");
+    var $id_market = $('#id_market').val();
+    var $token = $('#token').val();
     var count_products = 0
     var total_price = 0
     var products_list = []
@@ -153,7 +157,10 @@
             fontSize: "1.6rem"
         }); 
 
-        $.get( "/api/v1/products/{{market_id}}", function( data ) {            
+        axios.get("/api/v1/products/{{market_id}}", {headers: {"Authorization" : "Token " + $token}})
+        .then((response) => {
+            console.log(response);
+            var data = response.data;
             if(data.success){
                 var data = data.data;
                 products_list = data;
@@ -184,7 +191,9 @@
             }
 
             $.busyLoadFull("hide");
-        }); 
+        }, (error) => {
+            alert(error);
+        });
         
         
         $btn_complete_order.on("click", function() {

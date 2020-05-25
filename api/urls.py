@@ -16,8 +16,10 @@ urlpatterns = [
     path('clients/', view_users.ClientCreateAPIView.as_view(), name='api-clients-create'),
     
     #Orders
+    path('orders/count/<str:id_market>/', view_orders.OrdersCountAPIView.as_view(), name='api-orders-count'),
     path('orders/', view_orders.OrderCreateAPIView.as_view(), name='api-orders-create'),
     path('orders/status/', view_orders.OrderStatusUpdateAPIView.as_view(), name='api-status-orders-update'),
+    path('orders/products/<str:uuid>/', view_orders.ProductByOrderListAPIView.as_view(), name='api-product-by-order-list'),
     
     #endpoint for tables
     #products

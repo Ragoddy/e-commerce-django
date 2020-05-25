@@ -9,6 +9,8 @@
 <div class="container-fluid">
 
     {% if market_id > 0 %}
+        <input type="hidden" id="id_market" value="{{market_id}}">
+        <input type="hidden" id="token" value="{{token}}">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Hola, {{name |lower|capfirst}}</h1>    
@@ -38,8 +40,8 @@
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos Activos</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{orders_count}}</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedidos Activos</div>
+                            <div id="order_active" class="h5 mb-0 font-weight-bold text-gray-800">{{orders_count}}</div>
                         </div>
                         <div class="col-auto">
                         <i class="fas fa-cash-register fa-2x text-gray-300"></i>
@@ -54,10 +56,10 @@
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Promociones</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pedidos Gestinados</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
+                                    <div id="order_historic" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{orders_historic_count}}</div>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +210,7 @@
 
     <!--Modal for alert`s change state -->
     <div class="modal fade text-left modal-borderless" id="modal_order_status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Cambiar estado del pedido</h3>
@@ -236,6 +238,7 @@
                                     <input type="radio" name="options" id="rd_closed" value="3"> Enviado
                                 </label>
                             </div>
+                            <br/>
                         </div>
                     </div>
                 </div>
@@ -249,6 +252,84 @@
                         <span class="d-none d-sm-block">Aceptar</span>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for order detail -->
+    <div class="modal fade" id="modal_order_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Detalle del pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_detail_order">   
+                    <div class="form-row">                                
+                        <div class="form-group col-md-6">
+                            <label for="title">Nombre Cliente</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del cliente" readonly="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="title">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="teléfono" readonly="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="address">Dirección</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Dirección" readonly="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="complement">Complemento</label>
+                            <input type="text" class="form-control" id="complement" name="complement" readonly="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="complement">Productos</label>
+                            <table id="table_products_list" class="table table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" style="width: 10%">#</th>
+                                        <th scope="col" style="width: 70%">Producto</th>
+                                        <th scope="col" style="width: 20%">Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                    </tr>                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="title">Precio total</label>
+                            <input type="text" class="form-control" id="total_price" name="total_price" placeholder="Precio total" readonly="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="title">Medio de pago</label>
+                            <input type="text" class="form-control" id="payment_method" name="payment_method" placeholder="Medio de pago" readonly="">
+                        </div>                    
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="title">Comemtarios</label>
+                            <input type="text" class="form-control" id="comments" name="comments" readonly="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>            
+            </div>
             </div>
         </div>
     </div>

@@ -64,11 +64,7 @@ function operateOrderFormatter(value, row, index) {
 }
 
 window.operateOrderEvents = {
-    'click .status_order': function (e, value, row, index) {
-        var $cancel = $("#rd_cancel");
-        var $received = $("#rd_received");
-        var $progress = $("#rd_progress");
-        var $closed = $("#rd_closed");
+    'click .status_order': function (e, value, row, index) {        
         var $order_id = $('#order_id');
         var id = row.UUID;
         var status = row.status_order;
@@ -87,7 +83,53 @@ window.operateOrderEvents = {
         $('#modal_order_status').modal("show");
     },
     'click .detail_order': function (e, value, row, index) {
-        alert('You click like action, row: ' + JSON.stringify(row))
+        
+        var $name = $('#name');
+        var $phone = $('#phone');
+        var $address = $('#address');
+        var $complement_address = $('#complement_address');
+        var $total_price = $('#total_price');
+        var $comments = $('#comments');
+        var $payment_method = $('#payment_method');
+
+        var total_price = new Intl.NumberFormat().format(row.total_price)
+        var pay_method = (row.payment_method == 1) ? "Datafono" : "Efectivo";
+        var url = "/api/v1/orders/products/" + row.UUID + "/";
+        var $table_products_list = $("#table_products_list");
+
+        
+        $name.val(row.name_client);
+        $phone.val(row.phone);
+        $address.val(row.address);
+        $complement_address.val(row.complement_address);
+        $total_price.val("$ " + total_price);
+        $comments.val(row.comments);
+        $payment_method.val(pay_method);
+
+        //execute busy loading              
+        $.busyLoadFull("show",{ 
+            animation: "slide",
+            spinner: "circles", 
+            text: "Cargando pedido, Por favor espere...", 
+            background: "rgba(0, 51, 101, 0.7)",
+            fontSize: "1.6rem"
+        }); 
+        
+        //execute api for products
+        axios.get(url)
+        .then((response) => {
+            $("#table_products_list tbody").empty();
+            $.each(response.data.data, function( key, value ) {
+                var number = new Intl.NumberFormat().format(value.total_price)
+                $table_products_list.append('<tr><th scope="row">1</th><td>' + value.product_name + '</td><td>$' + number + '</td></tr>');
+            });
+            $('#modal_order_detail').modal("show");
+            $.busyLoadFull("hide");
+        }, (error) => {
+            alert(error);
+            $.busyLoadFull("hide");
+        });        
+        
     }
 }
 
@@ -96,7 +138,7 @@ function totalPriceOrderFormatter(value, row) {
     return '<p class="text-center">$ ' + number + '</p>'
 }
 function payMethodOrderFormatter(value, row) {
-    if (row.status == 1){
+    if (row.payment_method == 1){
         return '<p class="text-center"> <i class="fa fa-money-bill"></i> Efectivo</p>'
     }else{
         return '<p class="text-center"> <i class="fa fa-mobile"></i> Datafono</p>'
@@ -118,8 +160,23 @@ function dateOrderFormatter(value, row) {
 }
 
 
-$(document).ready(function() {    
+function refreshOrderCount(){
+    var $id_market = $('#id_market').val();
+    var $token = $('#token').val();
+    var $oActive = $('#order_active');
+    var $oHistoric = $('#order_historic');
+    var url = "/api/v1/orders/count/" + $id_market + "/";
+    axios.get(url, {headers: {"Authorization" : "Token " + $token}})
+    .then((response) => {
+        console.log(response)
+        $oActive.html(response.data.data.orders_count);
+        $oHistoric.html(response.data.data.orders_historic_count)
+    }, (error) => {
+        alert(error);
+    });
+}
 
+$(document).ready(function() {        
 
     $("#btn_send_status").click(function(){
         var $cancel = $("#rd_cancel:checked").val();
@@ -154,9 +211,12 @@ $(document).ready(function() {
             }else{          
                 alert("Se genero un error al cambiar el estado, por favor intente nuevamente");
             }
+
+            refreshOrderCount();
         }, (error) => {
             alert(error);
         });
+
     });
     
    

@@ -63,3 +63,10 @@ class ProductByOrder(models.Model):
     unit_price = models.FloatField(default=0)    
     total_price = models.FloatField(default=0)    
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
+    
+    def __str__(self):
+        return str(self.product.title)
+    
+    @property
+    def product_name(self):
+        return self.product.title

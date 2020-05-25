@@ -205,6 +205,54 @@
         </div>
 
     {% endif %}
+
+    <!--Modal for alert`s change state -->
+    <div class="modal fade text-left modal-borderless" id="modal_order_status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Cambiar estado del pedido</h3>
+                    <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
+                        <i class="bx bx-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-10">
+                            <h6>Por favor seleccione el cambio de estado:</h6>
+                            <br/>
+                            <input type="hidden" id="order_id" value="0">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-danger active" for="rd_cancel" id="option_cancel">
+                                    <input type="radio" name="options" id="rd_cancel" value="4"> Cancelar
+                                </label>
+                                <label class="btn btn-outline-primary" for="rd_received" id="option_received">
+                                    <input type="radio" name="options" id="rd_received" value="1"> Recibido
+                                </label>
+                                <label class="btn btn-outline-info" for="rd_progress" id="option_progress">
+                                    <input type="radio" name="options" id="rd_progress" value="2"> Procesando
+                                </label>
+                                <label class="btn btn-outline-success" for="rd_closed" id="option_closed">
+                                    <input type="radio" name="options" id="rd_closed" value="3"> Enviado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary" data-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Cancelar</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-1" id="btn_send_status" data-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Aceptar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
 </div>
 <!-- /.container-fluid -->

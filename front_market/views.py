@@ -35,7 +35,7 @@ class HomeView(View):
         if market_id > 0:
             name = Market.objects.get(id=market_id).name
         products_count = Product.objects.filter(market=market_id).count()
-        orders_count = Order.objects.filter(market=market_id).count()        
+        orders_count = Order.objects.filter(market=market_id).exclude(status_order__in=[0,3]).count()        
         
         return render(request, 'front_market/home.html', locals())
 

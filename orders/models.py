@@ -38,7 +38,8 @@ STATUS_CHOICES = [
 class Order(models.Model):
     UUID = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     type_so = models.IntegerField(default=1, choices=ORDER_CHOICES)
-    creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modification_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     market = models.ForeignKey("markets.Market", verbose_name="Market_Order", on_delete=models.CASCADE)
     payment_method = models.IntegerField(default=1, choices=PAYMENT_METHOD_CHOICES)
     status_order = models.IntegerField(default=1, choices=STATUS_ORDER_CHOICES)
@@ -51,7 +52,7 @@ class Order(models.Model):
     phone = models.CharField(max_length=200, blank=True, null=True) 
     
     def __str__(self):
-        return str(self.type_so)
+        return str(self.id)
     
 
 class ProductByOrder(models.Model):

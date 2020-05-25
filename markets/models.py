@@ -102,7 +102,8 @@ class Market(models.Model):
     city = models.CharField(max_length=150)
     minimum_price = models.FloatField()
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
-    creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modification_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     location = models.PointField(geography=True, default=Point(-74.05488966864571, 4.71026094566535, srid=4326))
     categories = models.ManyToManyField('Category')
     image = models.ImageField(upload_to=market_path, blank=True, null=True)
@@ -144,7 +145,8 @@ class Product(models.Model):
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
     market = models.ForeignKey("Market", verbose_name="Market", on_delete=models.CASCADE)
     # product_type = models.ForeignKey("ProductType", verbose_name="ProductType", on_delete=models.CASCADE)
-    creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modification_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     
     def __str__(self):
         return str(self.title)
@@ -155,7 +157,8 @@ class ProductType(models.Model):
     name = models.CharField(max_length=200)    
     available = models.IntegerField(default=1, choices=STATUS_CHOICES)
     status = models.IntegerField(default=1, choices=STATUS_CHOICES)
-    creation_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modification_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     
     def __str__(self):
         return str(self.name)

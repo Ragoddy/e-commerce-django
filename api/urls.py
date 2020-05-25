@@ -17,9 +17,11 @@ urlpatterns = [
     
     #Orders
     path('orders/', view_orders.OrderCreateAPIView.as_view(), name='api-orders-create'),
+    path('orders/status/', view_orders.OrderStatusUpdateAPIView.as_view(), name='api-status-orders-update'),
     
     #endpoint for tables
     #products
     path('table/products/<str:id_market>/', view_markets.ProductListTableAPIView.as_view(), name='api-product-list-table'),
-     path('table/orders/<str:id_market>/', view_orders.OrdersListTableAPIView.as_view(), name='api-order-list-table'),
+    path('table/orders/<str:id_market>/', view_orders.OrdersListTableAPIView.as_view(), name='api-order-list-table'),
+    path('table/orders/historic/<str:id_market>/', view_orders.OrdersHistoricListTableAPIView.as_view(), name='api-order-historic-list-table'),
 ]

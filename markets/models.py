@@ -96,6 +96,7 @@ class Schedule(models.Model):
         return str(self.day)
 
 class Market(models.Model):    
+    UUID = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     code = models.CharField(max_length=20, unique=True, null=True)
     name = models.CharField(max_length=200)
     addresses = models.CharField(max_length=200)    
@@ -108,6 +109,7 @@ class Market(models.Model):
     categories = models.ManyToManyField('Category')
     image = models.ImageField(upload_to=market_path, blank=True, null=True)
     onwer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    delivery_price = models.FloatField(default=0)
     
     def __str__(self):
         return str(self.name)
@@ -127,13 +129,15 @@ class Market(models.Model):
             telephone = Telephone.objects.filter(market = self.id)[0]
         return str(telephone)
 
-    def set_pk(self):
-        self.UUID = uuid.uuid4()
+    # def set_pk(self):
+    #     self.UUID = uuid.uuid4()
+    #     while Market.objects.filter(UUID=self.UUID).count() > 0:
+    #         self.UUID = uuid.uuid4()
 
-    def save(self, *args, **kwargs):
-        if self.UUID is None:
-            self.set_pk()
-            super(Market, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.UUID is None:
+    #         self.set_pk()
+    #         super(Market, self).save(*args, **kwargs)
 
 class Product(models.Model):
     title = models.CharField(max_length=200)

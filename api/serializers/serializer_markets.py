@@ -37,7 +37,8 @@ class MarketSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):    
+    market_uuid = serializers.ReadOnlyField(source='market.UUID')
     
     class Meta:
         model = Product
-        fields = ('pk', 'title', 'description', 'price', 'image', 'available', 'status','creation_date', 'market')   
+        fields = ('pk', 'title', 'description', 'price', 'image', 'available', 'status','creation_date', 'market','market_uuid')   

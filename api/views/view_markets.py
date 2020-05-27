@@ -51,7 +51,58 @@ class PhoneCreateAPIView(APIView):
         return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+class MarketNewsListAPIView(APIView):
+    """
+    API endpoint for markets app
+    """
+    def get(self, request, longitude, latitude, version, format=None):      
+        """
+        Return a list of all markets for distance latitud and longitude.
+        """        
+        longitude = float(longitude)
+        latitude = float(latitude)
+        client_location = Point(longitude, latitude, srid=4326)
+        
+        queryset = []              
+        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=3000)))\
+                .annotate(distance=Distance('location', client_location)).order_by('distance','-creation_date')[0:10]
+                
+        for market in markets:    
+            queryset_phone = Telephone.objects.filter(market = market.id)
+            serializer_phones = TelephoneSerializer(queryset_phone, many=True)  
+
+            queryset_category = market.categories.all()
+            serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request})        
+            
+            queryset_products = Product.objects.filter(market=market.id, status=1).order_by('-creation_date')
+            serializer_products = ProductSerializer(queryset_products, many=True)      
+            
+            image_url = None
+            if market.image:
+                image_url = request.build_absolute_uri(market.image.url)                 
+                
+            obj ={
+                    "UUID": market.UUID,
+                    "code": market.code,
+                    "name": market.name,
+                    "addresses": market.addresses,
+                    "city": market.city,
+                    "longitude": market.longitude,
+                    "latitude": market.latitude,
+                    "minimum_price": market.minimum_price,
+                    "delivery_price": market.delivery_price,
+                    "image": image_url,
+                    "phones": serializer_phones.data,
+                    "categories": serializer_category.data,
+                    "products": serializer_products.data
+                }
+            queryset.append(obj)
+                
+        return Response({"success":True, "data": queryset, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)
     
+    
+        
 class MarketListAPIView(APIView):
     """
     API endpoint for markets app
@@ -65,7 +116,8 @@ class MarketListAPIView(APIView):
         client_location = Point(longitude, latitude, srid=4326)
         
         queryset = []              
-        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=3000))).annotate(distance=Distance('location', client_location)).order_by('distance')[0:30]
+        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=3000)))\
+                        .annotate(distance=Distance('location', client_location)).order_by('distance')[0:30]
         for market in markets:    
             queryset_phone = Telephone.objects.filter(market = market.id)
             serializer_phones = TelephoneSerializer(queryset_phone, many=True)  
@@ -76,16 +128,21 @@ class MarketListAPIView(APIView):
             queryset_products = Product.objects.filter(market=market.id, status=1).order_by('-creation_date')
             serializer_products = ProductSerializer(queryset_products, many=True)      
             
+            image_url = None
+            if market.image:
+                image_url = request.build_absolute_uri(market.image.url)         
+            
             obj ={
-                    "pk": market.pk,
+                    "UUID": market.UUID,
                     "code": market.code,
                     "name": market.name,
                     "addresses": market.addresses,
                     "city": market.city,
                     "longitude": market.longitude,
                     "latitude": market.latitude,
-                    "minimun_price": market.minimum_price,
                     "minimum_price": market.minimum_price,
+                    "delivery_price": market.delivery_price,
+                    "image": image_url,
                     "phones": serializer_phones.data,
                     "categories": serializer_category.data,
                     "products": serializer_products.data

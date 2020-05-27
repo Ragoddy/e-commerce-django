@@ -7,6 +7,7 @@ urlpatterns = [
     path('categories/', view_markets.CategoryListAPIView.as_view(), name='api-categories-list'),
     path('markets/', view_markets.MarketCreateAPIView.as_view(), name='api-markets-create'),
     path('markets/<str:longitude>/<str:latitude>/', view_markets.MarketListAPIView.as_view(), name='api-markets-list'),
+    path('markets/news/<str:longitude>/<str:latitude>/', view_markets.MarketNewsListAPIView.as_view(), name='api-markets-news-list'),
     path('phones/', view_markets.PhoneCreateAPIView.as_view(), name='api-phones-create'),
     
     #products

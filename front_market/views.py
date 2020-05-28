@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.views.generic import View, ListView, FormView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.db import transaction
+from django.db import IntegrityError, transaction
 
 from rest_framework.authtoken.models import Token
 
@@ -12,10 +12,10 @@ from rest_framework.authtoken.models import Token
 import json
 
 #import models
-from markets.models import Market, Product, Category
+from markets.models import Market, Product, Category, Telephone
 from orders.models import Order, ProductByOrder
 
-from markets.forms import ProductForm, MarketForm
+from markets.forms import ProductForm, MarketForm, MarketLocationForm
 from orders.forms import OrderForm
 
 def ReturnMarket(request):
@@ -42,19 +42,65 @@ class HomeView(View):
         token = ReturnToken(request)        
         name = None
         
-        form = MarketForm()
-        categories = Category.objects.all().order_by('sorting')
+        form_location = MarketLocationForm()
+        categories = Category.objects.all().order_by('-sorting')
         
         if market_id > 0:
             name = Market.objects.get(id=market_id).name
-        products_count = Product.objects.filter(market=market_id).count()     
-        
-        queryset_order = Order.objects.filter(market=market_id);
-        orders_count = queryset_order.exclude(status_order__in=[0,3]).count()        
-        orders_historic_count = queryset_order.exclude(status_order__in=[1,2]).count()     
+            products_count = Product.objects.filter(market=market_id).count()  
+            queryset_order = Order.objects.filter(market=market_id);
+            orders_count = queryset_order.exclude(status_order__in=[0,3]).count()        
+            orders_historic_count = queryset_order.exclude(status_order__in=[1,2]).count()     
         
         return render(request, 'front_market/home.html', locals())
 
+    @method_decorator(login_required)
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):     
+        market_id = ReturnMarket(request)   
+        token = ReturnToken(request)         
+        form = MarketForm(request.POST, request.FILES)   
+        file = None
+
+        try:        
+            if "file" in request.FILES:
+                print("true")
+                print(request.FILES)
+            
+            if form.is_valid():         
+                
+                """ Create Market """
+                category = Category.objects.get(id=int(form.cleaned_data['category']))
+                market = Market()
+                market.name = form.cleaned_data['name_kyper']
+                market.addresses = form.cleaned_data['addresses']
+                market.city = form.cleaned_data['city']
+                market.minimum_price = form.cleaned_data['minimum_price']
+                market.delivery_price = form.cleaned_data['delivery_price']
+                market.location = str(form.cleaned_data['location']).split(';')[1]
+                market.image = form.cleaned_data['file']
+                market.onwer = request.user
+                market.save()        
+                market.categories.add(category)   
+                 
+                """ Create Phone """
+                phone = Telephone()
+                phone.type_telephone = 2
+                phone.number = form.cleaned_data['number']
+                phone.first = 1
+                phone.market = market
+            
+                return HttpResponseRedirect("/web/markets/products/")
+            
+            else:
+                
+                form_location = MarketLocationForm()
+                categories = Category.objects.all().order_by('-sorting')
+                return render(request, 'front_market/home.html', locals())
+            
+        except IntegrityError:
+            return render(request, 'front_market/home.html', locals())
+                      
 
 class ProductView(View):
     @method_decorator(login_required)
@@ -62,8 +108,11 @@ class ProductView(View):
         request.session['message'] = False
         request.session['saved'] = False        
         market_id = ReturnMarket(request) 
-        token = ReturnToken(request)      
-        if market_id > 0:                
+        token = ReturnToken(request)  
+        product_exists = False
+            
+        if market_id > 0:               
+            product_exists = Product.objects.filter(market = market_id).exists()
             return render(request, 'front_market/product.html', locals())
         else:
             return HttpResponseRedirect("/web/markets/")

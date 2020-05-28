@@ -2,7 +2,7 @@
 
 
 {% block extra_head %}
-    {{ form.media }}
+    {{ form_location.media }}
 {% endblock %}
 {% block body %}
 <!-- Begin Page Content -->
@@ -143,10 +143,28 @@
                                 debes crear tu comercio, por favor diligencia los campos que se encuentran a continuación</h6>
                     </div>
                     <div class="card-body">
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                         <form id="form_kyper" class="user" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}                              
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
+                                    <label for="name_kyper">Nombre del comercio</label>
+                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="name_kyper" name="name_kyper" placeholder="Nombre del comercio" autofocus="autofocus" required="required">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="file">Seleccionar Imagen <small>Opcional- dimensiones 1300x498 px</small></label>
                                     <div class="custom-file">
                                         <input type="file" class="bg-gray-100 form-control form-control-user custom-file-input" id="file" name="file">
@@ -156,18 +174,18 @@
                             </div>
                             <div class="form-row">                                
                                 <div class="form-group col-md-6">
-                                    <label for="title">Nombre del comercio</label>
-                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="name" name="name" placeholder="Nombre del comercio" autofocus="autofocus" required="required">
+                                    <label for="minimum_price">Precio Domicilio <small>Opcional - valor 0 sin cobro de domicilio para el cliente</small></label>
+                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="delivery_price" name="delivery_price" placeholder="Precio Minimo" value="0" pattern="[0-9]" required="required">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="title">Precio Minimo</label>
-                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="price" name="price" placeholder="Precio Minimo" pattern="[0-9]" required="required">
+                                    <label for="minimum_price">Precio Minimo por pedido</label>
+                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="minimum_price" name="minimum_price" placeholder="Precio Minimo" pattern="[0-9]" required="required">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="title">Dirección</label>
-                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="address" name="address" placeholder="Dirección"  required="required">
+                                    <input type="text" class="bg-gray-100 form-control form-control-user" id="addresses" name="addresses" placeholder="Dirección"  required="required">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title">Ciudad</label>
@@ -185,13 +203,13 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title">Teléfono</label>
-                                    <input type="tel" class="bg-gray-100 form-control form-control-user" id="phone" name="phone" placeholder="0000000000" pattern="[0-9]{10}" required="required">
+                                    <input type="tel" class="bg-gray-100 form-control form-control-user" id="number" name="number" placeholder="0000000000" pattern="[0-9]{10}" required="required">
                                 </div>
                             </div>
                             <br/>
                             <div class="form-row justify-content-md-center">
                                 <div class="form-group col-md-auto">
-                                    {{ form.as_p }}
+                                    {{ form_location.as_p }}
                                 </div>
                             </div>
                             <br/>

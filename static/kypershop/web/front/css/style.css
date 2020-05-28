@@ -54,6 +54,14 @@
 
 form.user .form-control-user{
     font-size: 1rem;
+    padding: 1.2rem 1rem;
+    border-radius: 1rem;
+}
+
+/* Styles for kyper page */
+.image_kyper_home{
+    text-align: center;
+    width: 90%;
 }
 
 /* Styles for product */

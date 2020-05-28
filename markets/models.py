@@ -129,15 +129,17 @@ class Market(models.Model):
             telephone = Telephone.objects.filter(market = self.id)[0]
         return str(telephone)
 
-    # def set_pk(self):
-    #     self.UUID = uuid.uuid4()
-    #     while Market.objects.filter(UUID=self.UUID).count() > 0:
-    #         self.UUID = uuid.uuid4()
+    def set_code(self):
+        con = int(Market.objects.last().id + 1)
+        self.code = "MKT-" + str(con)
+        while Market.objects.filter(code=self.code).exists():
+            con = int(con + 1)
+            self.code = "MKT-" + str(con)
 
-    # def save(self, *args, **kwargs):
-    #     if self.UUID is None:
-    #         self.set_pk()
-    #         super(Market, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.code is None:
+            self.set_code()
+            super(Market, self).save(*args, **kwargs)
 
 class Product(models.Model):
     title = models.CharField(max_length=200)

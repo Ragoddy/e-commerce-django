@@ -28,7 +28,7 @@ function imageProductFormatter(value, row) {
 }
 
 function priceProductFormatter(value, row) {
-    var number = new Intl.NumberFormat('nu', { style: 'currency', currency: 'COP' }).format(row.price)
+    var number = new Intl.NumberFormat().format(row.price)
     return '<p class="text-center">$ ' + number + '</p>'
 }
 function availableProductFormatter(value, row) {
@@ -64,7 +64,7 @@ function operateOrderFormatter(value, row, index) {
 }
 
 window.operateOrderEvents = {
-    'click .status_order': function (e, value, row, index) {        
+    'click .status_order': function (e, value, row, index) {                
         var $order_id = $('#order_id');
         var id = row.UUID;
         var status = row.status_order;
@@ -84,6 +84,8 @@ window.operateOrderEvents = {
     },
     'click .detail_order': function (e, value, row, index) {
         
+        var $id_market = $('#id_market').val();
+        var $token = $('#token').val();
         var $name = $('#name');
         var $phone = $('#phone');
         var $address = $('#address');
@@ -116,7 +118,7 @@ window.operateOrderEvents = {
         }); 
         
         //execute api for products
-        axios.get(url)
+        axios.get(url, {headers: {"Authorization" : "Token " + $token}})
         .then((response) => {
             $("#table_products_list tbody").empty();
             $.each(response.data.data, function( key, value ) {
@@ -179,6 +181,7 @@ function refreshOrderCount(){
 $(document).ready(function() {        
 
     $("#btn_send_status").click(function(){
+        var $token = $('#token').val();
         var $cancel = $("#rd_cancel:checked").val();
         var $received = $("#rd_received:checked").val();
         var $progress = $("#rd_progress:checked").val();
@@ -204,7 +207,7 @@ $(document).ready(function() {
             status_order: status_result
         }
         //execute api                
-        axios.post(url, data )
+        axios.post(url, data, {headers: {"Authorization" : "Token " + $token}})
         .then((response) => {
             if(response.data.success == true){
                 $dataTableOrders.bootstrapTable('refresh');

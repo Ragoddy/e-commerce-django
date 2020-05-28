@@ -139,7 +139,7 @@ class Market(models.Model):
     def save(self, *args, **kwargs):
         if self.code is None:
             self.set_code()
-            super(Market, self).save(*args, **kwargs)
+        super(Market, self).save(*args, **kwargs)
 
 class Product(models.Model):
     title = models.CharField(max_length=200)

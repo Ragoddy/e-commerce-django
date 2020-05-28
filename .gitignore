@@ -18,6 +18,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 kypershop_app/__pycache__/
+kypershop_app/__pycache__/*
 markets/__pycache__/*
 markets/__pycache__/models.cpython-36.pyc
 markets/__pycache__/admin.cpython-36.pyc

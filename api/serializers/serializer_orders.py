@@ -2,13 +2,24 @@ from rest_framework import serializers
 
 from orders.models import *
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Order
-        fields = ['UUID', 'type_so', 'creation_date', 'payment_method', 'status_order' ,
-                  'total_price', 'comments', 'address' ,'complement_address', 'name_client', 'phone']
+        fields = ['UUID','type_so', 'payment_method' , 'total_price', 'creation_date', 'comments', 'address' ,'complement_address', 'name_client', 'phone', 'status_order']
+        read_only_fields = ['pk','UUID' 'status_order']
         
 
+class OrderCreateSerializer(serializers.ModelSerializer):
+    
+    products = serializers.ReadOnlyField(read_only = True)
+    class Meta:
+        model = Order
+        fields = ['pk','UUID','type_so', 'payment_method' , 'total_price', 'comments', 'address' ,'complement_address', 'name_client', 'phone', 'market',
+                   'status_order', 'products']
+        read_only_fields = ['pk','UUID', 'status_order']
+        extra_kwargs = {'products': {'write_only': True}}
+        
+        
 class ProductByOrderSerializer(serializers.ModelSerializer):
     product_name = serializers.ReadOnlyField(source='product.title')
     

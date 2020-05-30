@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError, transaction
 
 from rest_framework.generics import ListCreateAPIView
 from rest_framework import generics
@@ -12,12 +13,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework import status
 
+
 from django.contrib.gis.measure import Distance
 from django.contrib.gis.geos import Point
 
 from orders.models import Order, ProductByOrder
+from markets.models import Category, Market, Product
 
-from api.serializers.serializer_orders import OrderSerializer, ProductByOrderSerializer
+from api.serializers.serializer_orders import OrderSerializer, OrderCreateSerializer, ProductByOrderSerializer
 
 
 class OrderCreateAPIView(APIView):
@@ -26,11 +29,46 @@ class OrderCreateAPIView(APIView):
     """
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    @transaction.atomic
     def post(self, request, version, format=None):
-        serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)
+        serializer = None
+           
+        if "products" in request.data:  
+            
+            market_id = Market.objects.get(UUID = request.data["market"]).id
+            data_order = {
+                "type_so":request.data["type_so"],
+                "payment_method": request.data["payment_method"] , 
+                "total_price": request.data["total_price"], 
+                "comments": request.data["comments"], 
+                "address":request.data["address"] ,
+                "complement_address":request.data["complement_address"], 
+                "name_client": request.data["name_client"], 
+                "phone": request.data["phone"], 
+                "market": market_id,
+                "status_order": 1
+            }
+            
+            serializer = OrderCreateSerializer(data=data_order)     
+            if serializer.is_valid():
+                serializer.save()                    
+                
+                order = Order.objects.get(pk=serializer.data['pk'])
+                
+                for prod in request.data['products']:
+                    product = Product.objects.get(pk=prod['pk'])
+                    pbo = ProductByOrder()
+                    pbo.order = order
+                    pbo.product = product
+                    pbo.amount = prod['amount']
+                    pbo.unit_price = product.price   
+                    pbo.total_price = product.price 
+                    pbo.save()
+                
+                return Response({"success":True, "data": serializer.data, "message": "Datos guardados correctamente"}, status=status.HTTP_201_CREATED)                
+        else:
+            return Response({"success":False, "data": "Se deben agregar productos al pedido", "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)    
+            
         return Response({"success":False, "data": serializer.errors, "message": "Datos incorrectos"}, status=status.HTTP_400_BAD_REQUEST)
 
 

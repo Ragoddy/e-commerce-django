@@ -1,5 +1,6 @@
 {% extends "front_market/base.html" %}
- 
+
+{% load static %}
 {% block body %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -10,6 +11,7 @@
 
     <!-- Content Row -->
     <input type="hidden" id="id_market" value="{{market_id}}">
+    <input type="hidden" id="token" value="{{token}}">
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow mb-4">
@@ -176,4 +178,10 @@
 
 {% endblock %}
 
-           
+
+{% block js_custom %}
+
+<!--custom scripts for front markets -->
+<script src="{% static 'kypershop/web/front/js/main.js' %}"></script>
+    
+{% endblock %}

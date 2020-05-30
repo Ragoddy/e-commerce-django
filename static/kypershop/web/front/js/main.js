@@ -1,57 +1,6 @@
 // js for main fron markets
-// js for products
-function operateProductFormatter(value, row, index) {
-    return [
-      '<a class="enable btn btn-info btn-circle btn-sm" href="javascript:void(0)" title="Deshabilitar producto">',
-      '<i class="fa fa-minus-square"></i>',
-      '</a>  ',
-      '<a class="enable btn btn-primary btn-circle btn-sm" href="javascript:void(0)" title="Editar producto">',
-      '<i class="fa fa-edit"></i>',
-      '</a>  ',
-      '<a class="remove btn btn-danger btn-circle btn-sm" href="javascript:void(0)" title="Eliminar producto">',
-      '<i class="fa fa-trash-alt"></i>',
-      '</a>'
-    ].join('')
-}
-
-window.operateProductEvents = {
-    'click .enable': function (e, value, row, index) {
-        alert('You click like action, row: ' + JSON.stringify(row))
-    },
-    'click .remove': function (e, value, row, index) {
-        
-    }
-}
-
-function imageProductFormatter(value, row) {    
-    return '<img class="text-center" src="' + row.image + '" alt="'+ row.title +'" height="45" width="65">'
-}
-
-function priceProductFormatter(value, row) {
-    var number = new Intl.NumberFormat().format(row.price)
-    return '<p class="text-center">$ ' + number + '</p>'
-}
-function availableProductFormatter(value, row) {
-    if (row.available == 1){
-        return '<p class="text-center"> Sí</p>'
-    }else{
-        return '<p class="text-center"> No</p>'
-    }
-}
-function statusProductFormatter(value, row) {
-    if (row.status == 1){
-        return '<p class="text-center"> Activo</p>'
-    }else{
-        return '<p class="text-center"> InActivo</p>'
-    }
-}
-function dateProductFormatter(value, row) {
-    return moment(value).format('DD/MM/YYYY HH:mm');
-}
-
-
-
 // js for Orders Home
+
 function operateOrderFormatter(value, row, index) {
     return [
       '<a class="status_order btn btn-info btn-circle" href="javascript:void(0)" title="Cambiar Estado">',
@@ -95,7 +44,7 @@ window.operateOrderEvents = {
         var $payment_method = $('#payment_method');
 
         var total_price = new Intl.NumberFormat().format(row.total_price)
-        var pay_method = (row.payment_method == 1) ? "Datafono" : "Efectivo";
+        var pay_method = (row.payment_method == 1) ? "Efectivo" : "Datafono";
         var url = "/api/v1/orders/products/" + row.UUID + "/";
         var $table_products_list = $("#table_products_list");
 
@@ -123,7 +72,7 @@ window.operateOrderEvents = {
             $("#table_products_list tbody").empty();
             $.each(response.data.data, function( key, value ) {
                 var number = new Intl.NumberFormat().format(value.total_price)
-                $table_products_list.append('<tr><th scope="row">1</th><td>' + value.product_name + '</td><td>$' + number + '</td></tr>');
+                $table_products_list.append('<tr><th scope="row">'+ value.amount +'</th><td>' + value.product_name + '</td><td>$' + number + '</td></tr>');
             });
             $('#modal_order_detail').modal("show");
             $.busyLoadFull("hide");
@@ -148,13 +97,13 @@ function payMethodOrderFormatter(value, row) {
 }
 function statusOrderFormatter(value, row) {
     if (value== 0){
-        return '<p class="text-center"> Cancelado</p>'
+        return '<p class="text-center"> <i class="text-danger fa fa-flag-checkered"></i> - Cancelado</p>'
     }else  if (value == 1){
-        return '<p class="text-center"> Recibido</p>'
+        return '<p class="text-center"> <i class="text-success fa fa-flag"></i> - Recibido</p>'
     }else  if (value == 2){
-        return '<p class="text-center"> Procesando</p>'
+        return '<p class="text-center"> <i class="text-info fa fa-flag"></i> - Procesando</p>'
     }else  if (value == 3){
-        return '<p class="text-center"> Enviado</p>'
+        return '<p class="text-center"> <i class="text-primary fa fa-flag-checkered"></i> - Enviado</p>'
     }
 }
 function dateOrderFormatter(value, row) {
@@ -170,7 +119,6 @@ function refreshOrderCount(){
     var url = "/api/v1/orders/count/" + $id_market + "/";
     axios.get(url, {headers: {"Authorization" : "Token " + $token}})
     .then((response) => {
-        console.log(response)
         $oActive.html(response.data.data.orders_count);
         $oHistoric.html(response.data.data.orders_historic_count)
     }, (error) => {
@@ -221,6 +169,14 @@ $(document).ready(function() {
         });
 
     });
+
+
+    function refreshOrders(){
+        $('#dataTableOrders').bootstrapTable('refresh');
+        refreshOrderCount();
+    }
+
+    var myDataLoading = setInterval(refreshOrders, 10000);
     
    
 });

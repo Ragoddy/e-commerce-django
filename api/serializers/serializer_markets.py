@@ -6,7 +6,7 @@ class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Category
-        fields = ('code', 'name', 'description', 'count_markets', 'sorting', 'image')   
+        fields = ('pk', 'code', 'name', 'description', 'count_markets', 'sorting', 'image')   
 
        
         
@@ -41,4 +41,4 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ('pk', 'title', 'description', 'price', 'image', 'available', 'status','creation_date', 'market','market_uuid')   
+        fields = ('pk', 'title', 'description', 'price', 'image', 'available', 'status','creation_date','market_uuid')   

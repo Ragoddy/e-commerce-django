@@ -1,4 +1,6 @@
 {% extends "front_market/base.html" %}
+
+{% load static %}
 {% block extra_head %}    
     
 {% endblock %}
@@ -358,6 +360,9 @@
 {% endblock %}
 
 {% block js_custom %}
+
+<!--custom scripts for front markets -->
+<script src="{% static 'kypershop/web/front/js/main.js' %}"></script>
     
 {% endblock %}
 

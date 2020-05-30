@@ -65,7 +65,7 @@ class MarketNewsListAPIView(APIView):
         client_location = Point(longitude, latitude, srid=4326)
         
         queryset = []              
-        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=3000)))\
+        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=2000)))\
                 .annotate(distance=Distance('location', client_location)).order_by('distance','-creation_date')[0:10]
                 
         for market in markets:    
@@ -107,17 +107,18 @@ class MarketListAPIView(APIView):
     """
     API endpoint for markets app
     """
-    def get(self, request, longitude, latitude, version, format=None):      
+    def get(self, request, longitude, latitude, category, version, format=None):      
         """
         Return a list of all markets for distance latitud and longitude.
         """        
         longitude = float(longitude)
         latitude = float(latitude)
+        category = int(category)
         client_location = Point(longitude, latitude, srid=4326)
         
-        queryset = []              
-        markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=3000)))\
-                        .annotate(distance=Distance('location', client_location)).order_by('distance')[0:30]
+        queryset = []             
+        markets = Market.objects.filter(status=1, categories = category, location__distance_lt=(client_location, D(m=2000)))\
+                        .annotate(distance=Distance('location', client_location)).order_by('distance', '-creation_date')[0:30]
         for market in markets:    
             queryset_phone = Telephone.objects.filter(market = market.id)
             serializer_phones = TelephoneSerializer(queryset_phone, many=True)  
@@ -126,7 +127,7 @@ class MarketListAPIView(APIView):
             serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request})        
             
             queryset_products = Product.objects.filter(market=market.id, status=1).order_by('-creation_date')
-            serializer_products = ProductSerializer(queryset_products, many=True)      
+            serializer_products = ProductSerializer(queryset_products, many=True, context={"request":request})      
             
             image_url = None
             if market.image:
@@ -150,7 +151,6 @@ class MarketListAPIView(APIView):
             queryset.append(obj)
                 
         return Response({"success":True, "data": queryset, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)
-
 
 
 
@@ -196,37 +196,3 @@ class MarketCreateAPIView(APIView):
 
 
 
-class ProductListTableAPIView(APIView):
-    """
-    API endpoint for products
-    """
-    
-    def get(self, request, id_market, version, format=None):      
-        """
-        Return a list of market products.
-        """     
-        id_market = int(id_market)
-        
-        queryset = Product.objects.filter(market=id_market).order_by('-creation_date')
-        serializer = ProductSerializer(queryset, many=True, context={"request":request})
-        
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-   
-
-class ProductListAPIView(APIView):
-    """
-    API endpoint for products
-    """    
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    def get(self, request, id_market, version, format=None):      
-        """
-        Return a list of market products.
-        """     
-        id_market = int(id_market)
-        
-        queryset = Product.objects.filter(market=id_market, status=1).order_by('-creation_date')
-        serializer = ProductSerializer(queryset, many=True, context={"request":request})
-        
-        return Response({"success":True, "data": serializer.data, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)

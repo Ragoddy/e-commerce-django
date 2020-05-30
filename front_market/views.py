@@ -27,7 +27,15 @@ def ReturnMarket(request):
 
 def ReturnToken(request):
     try:
-        token = Token.objects.get(user_id = request.user.id).key
+        if Token.objects.filter(user_id = request.user.id).exists():
+            token = Token.objects.get(user_id = request.user.id).key
+        else:
+            token = Token()
+            token.user_id = request.user.id
+            token.save()
+            
+            token = token.key
+            
     except Token.DoesNotExist:
         token = 0
     return token

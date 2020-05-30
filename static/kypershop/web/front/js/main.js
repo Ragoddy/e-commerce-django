@@ -172,8 +172,10 @@ $(document).ready(function() {
 
 
     function refreshOrders(){
-        $('#dataTableOrders').bootstrapTable('refresh');
-        refreshOrderCount();
+        if($('#id_market').val()> 0){
+            $('#dataTableOrders').bootstrapTable('refresh');
+            refreshOrderCount();
+        }
     }
 
     var myDataLoading = setInterval(refreshOrders, 10000);

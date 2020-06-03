@@ -1,0 +1,119 @@
+.bg-login-image{
+    background: url(../../../../images/shop-bg.png);
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 4rem;
+}
+
+.bg-gradient-warning-auth {
+    /*background-color: rgb(232,125,24);
+    background-image: linear-gradient(0deg, rgba(232,125,24,1) 1%, rgba(226,62,62,1) 50%); */
+    background-color: rgb(237,234,234);
+    background-image: linear-gradient(0deg, rgba(237,234,234,1) 33%, rgba(187,186,186,1) 74%);
+    background-size: cover;
+}
+
+.bg-gradient-warning-auth {
+    /*background-color: rgb(232,125,24);
+    background-image: linear-gradient(0deg, rgba(232,125,24,1) 1%, rgba(226,62,62,1) 50%); */
+    background-color: rgb(237,234,234);
+    background-image: linear-gradient(0deg, rgba(237,234,234,1) 33%, rgba(187,186,186,1) 74%);
+    background-size: cover;
+}
+
+.bg-gradient-menu {
+    background-color: rgb(236,234,230);
+    background-image: linear-gradient(180deg, rgba(236,234,230,1) 17%, rgba(207,204,201,1) 85%);
+    background-size: cover;
+    color: #858796;
+}
+
+.topbar {
+    height: 4rem;
+}
+.text-sm{
+    font-size: 1rem;
+}
+
+.bg_container{
+    margin-top: 3rem;
+}
+
+.table_kypershop tbody{
+    font-size: 0.9rem;
+}
+
+.modal-body{
+    background-color: #f8f9fc;
+}
+
+form.user .form-control-user{
+    font-size: 1rem;
+    padding: 1.2rem 1rem;
+    border-radius: 1rem;
+}
+
+/* Styles for kyper page */
+.image_kyper_home{
+    text-align: center;
+    width: 90%;
+}
+
+/* Styles for product */
+.custom_checkbox_stock{
+    margin-top: 0.4rem;
+}
+
+/* Style for products list */
+
+.card_body_product{
+    padding: 1rem;
+    width: 100%;    
+}
+.card_body_product h6{
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card_body_product .card-title{
+    color: gray;
+    font-weight: 600;
+    margin-bottom: .3rem;
+    text-overflow: ellipsis;
+}
+.card_body_product p{
+    font-size:.9rem;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+}
+.card_body_product .btn_add{
+    margin-top: .4rem;
+}
+
+.card_body_image{
+    width: 100%;
+    height: 100%;
+    line-height: 130px;
+}
+.card_body_image img{
+    width: 100px;
+    height: 100px;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: -.7rem;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+/* Styles for orders */
+
+.total_text{
+    font-weight: bold;
+    margin-right: .5rem;
+    font-size: 1.2rem;
+    margin-bottom: 0rem;
+}

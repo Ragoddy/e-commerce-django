@@ -66,7 +66,7 @@ class MarketNewsListAPIView(APIView):
         
         queryset = []              
         markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=2000)))\
-                .annotate(distance=Distance('location', client_location)).order_by('distance','-creation_date')[0:10]
+                .annotate(distance=Distance('location', client_location)).order_by('distance','-creation_date')[0:5]
                 
         for market in markets:    
             queryset_phone = Telephone.objects.filter(market = market.id)
@@ -107,18 +107,28 @@ class MarketListAPIView(APIView):
     """
     API endpoint for markets app
     """
-    def get(self, request, longitude, latitude, category, version, format=None):      
+    def get(self, request, longitude, latitude, version, format=None, category=None):      
         """
         Return a list of all markets for distance latitud and longitude.
         """        
         longitude = float(longitude)
         latitude = float(latitude)
-        category = int(category)
+        if not category is None:
+            category = int(category)
+        else: 
+            category = 0
         client_location = Point(longitude, latitude, srid=4326)
         
-        queryset = []             
-        markets = Market.objects.filter(status=1, categories = category, location__distance_lt=(client_location, D(m=2000)))\
+        
+        queryset = []  
+        print(category)          
+        if category > 0:            
+            markets = Market.objects.filter(status=1, categories = category, location__distance_lt=(client_location, D(m=2000)))\
                         .annotate(distance=Distance('location', client_location)).order_by('distance', '-creation_date')[0:30]
+        else:
+            markets = Market.objects.filter(status=1, location__distance_lt=(client_location, D(m=2000)))\
+                        .annotate(distance=Distance('location', client_location)).order_by('distance', '-creation_date')[0:30]
+                        
         for market in markets:    
             queryset_phone = Telephone.objects.filter(market = market.id)
             serializer_phones = TelephoneSerializer(queryset_phone, many=True)  

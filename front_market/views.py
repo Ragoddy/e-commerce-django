@@ -51,7 +51,7 @@ class HomeView(View):
         name = None
         
         form_location = MarketLocationForm()
-        categories = Category.objects.all().order_by('-sorting')
+        categories = Category.objects.all().order_by('sorting')
         
         if market_id > 0:
             name = Market.objects.get(id=market_id).name
@@ -103,7 +103,7 @@ class HomeView(View):
             else:
                 
                 form_location = MarketLocationForm()
-                categories = Category.objects.all().order_by('-sorting')
+                categories = Category.objects.all().order_by('sorting')
                 return render(request, 'front_market/home.html', locals())
             
         except IntegrityError:

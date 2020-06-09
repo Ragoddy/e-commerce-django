@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+	<title>kypershop - Compra al alcance de tu mano</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="¡¡Encuentra y pide a domicilio en los comercios al alcance de un clic!!" />
+	<meta name="keywords" content="domicilio, domicilios, comida, pide, comercios, farmacias, tiendas, restaurantes, pedidos, aplicación, responsive, tienda, virtual" />
+	<meta name="author" content="https://kypershop.com/" />
+
+	<link rel="shortcut icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+	<link rel="icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="{% static 'icon/apple-icon-57x57.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'icon/apple-icon-60x60.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'icon/apple-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'icon/apple-icon-76x76.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-icon-114x114.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'icon/apple-icon-120x120.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'icon/apple-icon-144x144.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'icon/apple-icon-152x152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'icon/apple-icon-180x180.png' %}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'icon/android-icon-192x192.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon/favicon-96x96.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icon/favicon-16x16.png' %}">
+	<!-- <link rel="manifest" href="/manifest.json"> -->
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="{% static 'icon/ms-icon-144x144.png' %}">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="kypershop - Compra al alcance de tu mano"/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://kypershop.com/"/>
+	<meta property="og:site_name" content="Kypershop"/>
+	<meta property="og:description" content="kypershop - Compra al alcance de tu mano"/>
+	<meta name="twitter:title" content="kypershop - Compra al alcance de tu mano" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="https://kypershop.com/" />
+	<meta name="twitter:card" content="kypershop - Compra al alcance de tu mano" />
+    <meta name="robots" content="all,follow">
+
+
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'landing_user/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Owl Carousel-->
+    <link rel="stylesheet" href="{% static 'landing_user/vendor/owl.carousel2/assets/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'landing_user/vendor/owl.carousel2/assets/owl.theme.default.css' %}">
+    <!-- Modal Video-->
+    <link rel="stylesheet" href="{% static 'landing_user/vendor/modal-video/css/modal-video.min.css' %}">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
+    <!-- Device Mockup-->
+    <link rel="stylesheet" href="{% static 'landing_user/css/device-mockups.css' %}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'landing_user/css/style.red.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'landing_user/css/custom.css' %}">
+
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <!-- navbar-->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container"><a class="navbar-brand" href="#"><img src={% static 'icon/apple-icon-114x114.png' %} alt="kypershop" width="50"></a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a class="nav-link link-scroll active" href="#hero">Inicio <span class="sr-only">(current)</span></a></li>
+              <li class="nav-item"><a class="nav-link link-scroll" href="#about">¿Cómo funciona?</a></li>
+              <li class="nav-item"><a class="nav-link link-scroll" href="#services">Categorias</a></li>
+              <li class="nav-item"><a class="nav-link link-scroll" href="#testimonials">Nuevos Kypers</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Hero Section-->
+    <section class="hero bg-top" id="hero" style="background: url(../static/landing_user/img/banner-4.png) no-repeat; background-size: 100% 80%">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 py-5">
+            <h1 class="font-weight-bold">KyperShop, compra al alcance de tu mano</h1>
+            <p class="my-4 text-muted">Encuentra y pide en restaurantes, mini-market, farmacias, papelerías, tiendas de ropa y mucho más...</p>
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item mb-2 mb-lg-0">
+                    <a class="btn btn-info btn-lg px-4" href="https://play.google.com/store/apps/details?id=com.kypershop.kyper"> 
+                    <i class="fab fa-google-play mr-3"></i>Google Play</a>
+                </li>
+                <li class="list-inline-item"><a class="btn btn-danger btn-lg px-4" href="/search/">Buscar Kypers</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-6 ml-auto">
+            <div class="device-wrapper mx-auto">
+              <div class="device shadow" data-device="iPhoneX" data-orientation="portrait" data-color="black">
+                <div class="screen"><img class="img-fluid" src="../static/landing_user/img/mobile.png" alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-center py-0" id="about" style="background: url(../static/landing_user/img/service-bg.svg) no-repeat; background-size: cover">
+        <section class="about py-0">
+          <div class="container">
+              <p class="h6 text-uppercase text-primary">¿Cómo funciona?</p>
+              <h2 class="mb-5">Pide a un clic</h2>
+              <div class="row pb-5">
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                  <!-- Services Item-->
+                  <div class="card border-0 shadow rounded-lg py-4 text-left">
+                  <div class="card-body p-5">
+                      <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#ff904e">
+                      <use xlink:href="#map-marker-1"> </use>
+                      </svg>
+                      <h3 class="font-weight-normal h4 my-4">1. Paso</h3>
+                      <p class="text-small mb-0">Descarga el App y digita tu direccion para encontrar los kypers mas cercanos.</p>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                  <!-- Services Item-->
+                  <div class="card border-0 shadow rounded-lg py-4 text-left">
+                  <div class="card-body p-5">
+                      <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#39f8d2">                    
+                      <use xlink:href="#document-saved-1"> </use>
+                      </svg>
+                      <h3 class="font-weight-normal h4 my-4">2. Paso</h3>
+                      <p class="text-small mb-0">Escoge el Kyper de tu preferencia y selecciona los productos que deseas pedir.</p>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <!-- Services Item-->
+                  <div class="card border-0 shadow rounded-lg py-4 text-left">
+                  <div class="card-body p-5">
+                      <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#8190ff">
+                      <use xlink:href="#arrow-target-1"> </use>
+                      </svg>
+                      <h3 class="font-weight-normal h4 my-4">3. Paso</h3>
+                      <p class="text-small mb-0">Envia el pedido y el kyper te llamara para coordinar la entrega de tus productos.</p>
+                  </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+        </section>
+        <section class="with-pattern-1" id="services">
+          <div class="container text-center">
+              <div class="row align-items-center px-5">
+                <div class="col-lg-12 mb-5 mb-lg-5">
+                    <h2>Nuestras Categorias</h2>
+                    <p class="text-muted">En Kypershop queremos que encuentres todo tipo de productos para que no tengas que salir de casa por esto hemos seleccionado las siguientes
+                     cateorias para que puedas seleccionar los kypers y realizar tus pedidos.</p>                    
+                    <a class="btn btn-primary" href="{% url 'account_signup' %}">Eres Emprendedor unete a Kypershop</a>
+                </div>
+              </div>
+              </br>
+              <div class="row align-items-center">
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <div id="container_categories" class="row">                                                   
+                                       
+                    </div>
+                </div>
+              </div>
+          </div>
+        </section>
+    </section>
+    <section class="p-0" id="testimonials" style="background: url(../static/landing_user/img/testimonials-bg.png) no-repeat; background-size: 40% 100%; background-position: left center">
+      <div class="container text-center">
+          <p class="h6 text-uppercase text-primary">Nuevos Emprendores</p>
+          <h2 class="mb-5">Estos son los nuevos kypers que se han unido</h2>
+          <div class="row">
+              <div class="col-lg-5 mx-auto">
+                <div id="container_markets" class="owl-carousel owl-theme testimonials-slider">
+                </div>
+              </div>            
+          </div>
+      </div>
+    </section>
+    <a class="scropll-top-btn" id="scrollTop" href="#"><i class="fas fa-long-arrow-alt-up"></i></a>
+
+    <footer class="with-pattern-1 position-relative">
+      <div class="container section-padding-y">
+        <div class="row">
+          <div class="col-lg-3 mb-4 mb-lg-0"><img class="mb-4" src="{% static 'icon/apple-icon-120x120.png' %}" alt="" width="80">
+            <p class="text-muted"></p>
+          </div>
+          <div class="col-lg-2 mb-4 mb-lg-0">
+            <h2 class="h5 mb-4">Acceso rapido</h2>
+            <div class="d-flex">
+              <ul class="list-unstyled d-inline-block mr-4 mb-0">
+                <li class="mb-2"><a class="footer-link" href="https://play.google.com/store/apps/details?id=com.kypershop.kyper">Descargar App </a></li>
+                <li class="mb-2"><a class="footer-link" href="/search/">Buscar Kypers</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-2 mb-4 mb-lg-0">
+            <h2 class="h5 mb-4">Kypers</h2>
+            <div class="d-flex">
+              <ul class="list-unstyled mr-4 mb-0">
+                <li class="mb-2"><a class="footer-link" href="{{ login_url }}">Iniciar Sesión </a></li>
+                <li class="mb-2"><a class="footer-link" href="{% url 'account_signup' %}">Registrar Kyper</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <h2 class="h5 mb-4">Contacto</h2>
+            <ul class="list-unstyled mr-4 mb-3">
+              <li class="mb-2 text-muted">Bogotá, Colombia </li>
+              <li class="mb-2"><a class="footer-link" href="mailto:developer@kypershop.com">developer@kypershop.com</a></li>
+            </ul>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item"><a class="social-link" href="https://www.facebook.com/kypershop"><i class="fab fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a class="social-link" href="https://twitter.com/kypershop"><i class="fab fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a class="social-link" href="https://www.instagram.com/kypershop/"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights">       
+        <div class="container text-center py-4">
+          <p class="mb-0 text-muted text-sm">&copy; 2020 KyperShop. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- JavaScript files-->
+    <script src="{% static 'landing_user/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'landing_user/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'landing_user/vendor/owl.carousel2/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'landing_user/vendor/modal-video/js/modal-video.js' %}"></script>
+    <script src="{% static 'landing_user/js/front.js' %}"></script>
+    <script>
+      // ------------------------------------------------------- //
+      //   Inject SVG Sprite - 
+      //   see more here 
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+      
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }
+      // this is set to BootstrapTemple website as you cannot 
+      // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+      // while using file:// protocol
+      // pls don't forget to change to your domain :)
+      injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+
+      
+    (function () {
+        var options = {
+            whatsapp: "+573208604520", // WhatsApp number
+            call_to_action: "¿Tienes Dudas? Escríbenos", // Call to action
+            position: "left", // Position may be 'right' or 'left'
+        };
+        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();    
+      
+    </script>
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  </body>
+</html>

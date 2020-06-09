@@ -11,6 +11,11 @@ class LandingKyperView(View):
         context = {}
         return render(request, 'landing/index.html', context)
 
+class LandingUserView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, 'landing/users.html', context)
+
 class LandingCreateKyperView(View):
     def post(self, request, *args, **kwargs):
         

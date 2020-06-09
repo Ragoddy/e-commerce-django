@@ -52,7 +52,7 @@ class PhoneCreateAPIView(APIView):
 
 
 
-class MarketNewsListAPIView(APIView):
+class MarketNewsLocationListAPIView(APIView):
     """
     API endpoint for markets app
     """
@@ -96,6 +96,43 @@ class MarketNewsListAPIView(APIView):
                     "phones": serializer_phones.data,
                     "categories": serializer_category.data,
                     "products": serializer_products.data
+                }
+            queryset.append(obj)
+                
+        return Response({"success":True, "data": queryset, "message": "Datos obtenidos correctamente"}, status=status.HTTP_200_OK)
+    
+
+class MarketNewsListAPIView(APIView):
+    """
+    API endpoint for markets app
+    """
+    def get(self, request, version, format=None):      
+        """
+        Return a list of all markets for distance latitud and longitude.
+        """        
+        queryset = []              
+        markets = Market.objects.filter(status=1).order_by('-creation_date')[0:5]
+                
+        for market in markets:  
+            queryset_category = market.categories.all()
+            serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request}) 
+            
+            image_url = None
+            if market.image:
+                image_url = request.build_absolute_uri(market.image.url)                 
+                
+            obj ={
+                    "UUID": market.UUID,
+                    "code": market.code,
+                    "name": market.name,
+                    "addresses": market.addresses,
+                    "city": market.city,
+                    "longitude": market.longitude,
+                    "latitude": market.latitude,
+                    "minimum_price": market.minimum_price,
+                    "delivery_price": market.delivery_price,
+                    "image": image_url,
+                    "categories": serializer_category.data
                 }
             queryset.append(obj)
                 

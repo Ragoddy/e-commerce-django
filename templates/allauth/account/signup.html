@@ -1,6 +1,7 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load account socialaccount %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
@@ -42,8 +43,20 @@
                   <br/>
                   <button type="submit" class="btn btn-primary btn-user btn-block primaryAction">{% trans "Sign Up" %} &raquo;</button>
                 </form>                
-                <hr>  
-                <br/>
+                <hr>             
+                  {% get_providers as socialaccount_providers %}
+                  {% if socialaccount_providers %}
+                    <div class="socialaccount_ballot">
+                      <a href="{% provider_login_url 'google' %}" class="btn btn-google btn-user btn-block">
+                        <i class="fab fa-google fa-fw"></i> Crear cuenta con Google
+                      </a>
+                    </div>
+                    {% include "socialaccount/snippets/login_extra.html" %}
+                  {% else %}
+                    <p>{% blocktrans %}If you have not created an account yet, then please
+                    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+                  {% endif %}
+                <br/> 
                 <div class="text-center">
                   <a class="small button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                 </div>

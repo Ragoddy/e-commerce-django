@@ -24,11 +24,17 @@ $(function () {
             $("#container_categories").empty();
             $.each(data, function( key, value ) {
                 $("#container_categories").append(
-                    '<div class="col-lg-3 col-sm-4 mb-4">'+
+                    '<div class="col-lg-3 col-sm-4 col-6 mb-4">'+
                     '<div class="card border-0 shadow rounded-lg text-left px-2">'+
-                        '<div class="card-body px ">'+
-                            '<img src="'+ value.image +'" width="30">'+
-                            '<h3 class="h6 font-weight-normal my-2">'+ value.name +'</h3>'+                           
+                        '<div class="card-body px">'+
+                            '<div class="row">'+
+                                '<div class="col-lg-3 col-sm-2 col-12 mx-auto">'+
+                                    '<img src="'+ value.image +'" width="30">'+ 
+                                '</div>'+  
+                                '<div class="col-lg-9 col-sm-10 col-12 mx-auto">'+
+                                    '<p class="h6 text-muted">'+ value.name +'</p>'+   
+                                '</div>'+ 
+                            '</div>'+                        
                         '</div>'+
                     '</div>'+
                     '</div>');
@@ -48,7 +54,7 @@ $(function () {
             $.each(data, function( key, value ) {
                 $("#container_markets").append(
                     '<div class="mx-3 mx-lg-4 my-3 pt-3">'+
-                    '<div class="card shadow rounded-lg px-3 py-4 px-lg-5 with-pattern bg-white border-0">'+
+                    '<div class="card shadow rounded-lg px-3 py-4 px-lg-2 with-pattern bg-white border-0">'+
                         '<div class="card-body index-forward pt-5 rounded-lg">'+
                             '<h3>'+ value.name +'</h3>'+
                             '<p class="lead text-muted mb-5">'+ value.addresses +'</p>'+

@@ -67,7 +67,7 @@
     <!-- navbar-->
     <header class="header">
       <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container"><a class="navbar-brand" href="#"><img src={% static 'icon/apple-icon-114x114.png' %} alt="kypershop" width="50"></a>
+        <div class="container"><a class="navbar-brand" href="#"><img src={% static 'icon/apple-icon-114x114.png' %} alt="kypershop" width="40"></a>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -84,18 +84,18 @@
     <section class="hero bg-top" id="hero" style="background: url(../static/landing_user/img/banner-4.png) no-repeat; background-size: 100% 80%">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 py-5">
+          <div class="col-lg-6 col-sm-12 py-5">
             <h1 class="font-weight-bold">KyperShop, compra al alcance de tu mano</h1>
             <p class="my-4 text-muted">Encuentra y pide en restaurantes, mini-market, farmacias, papelerías, tiendas de ropa y mucho más...</p>
             <ul class="list-inline mb-0">
                 <li class="list-inline-item mb-2 mb-lg-0">
-                    <a class="btn btn-info btn-lg px-4" href="https://play.google.com/store/apps/details?id=com.kypershop.kyper"> 
+                    <a class="btn btn-info btn-block btn-lg px-4" href="https://play.google.com/store/apps/details?id=com.kypershop.kyper"> 
                     <i class="fab fa-google-play mr-3"></i>Google Play</a>
                 </li>
-                <li class="list-inline-item"><a class="btn btn-danger btn-lg px-4" href="/search/">Buscar Kypers</a></li>
+                <li class="list-inline-item"><a class="btn btn-danger btn-block btn-lg px-4" href="/search/">Buscar Kypers</a></li>
             </ul>
           </div>
-          <div class="col-lg-6 ml-auto">
+          <div class="col-lg-6 col-sm-12 ml-auto">
             <div class="device-wrapper mx-auto">
               <div class="device shadow" data-device="iPhoneX" data-orientation="portrait" data-color="black">
                 <div class="screen"><img class="img-fluid" src="../static/landing_user/img/mobile.png" alt=""></div>
@@ -154,10 +154,12 @@
           <div class="container text-center">
               <div class="row align-items-center px-5">
                 <div class="col-lg-12 mb-5 mb-lg-5">
-                    <h2>Nuestras Categorias</h2>
-                    <p class="text-muted">En Kypershop queremos que encuentres todo tipo de productos para que no tengas que salir de casa por esto hemos seleccionado las siguientes
+                    <h2 class="text-center">Nuestras Categorias</h2>
+                    <p class="text-muted text-justify">En Kypershop queremos que encuentres todo tipo de productos para que no tengas que salir de casa por esto hemos seleccionado las siguientes
                      cateorias para que puedas seleccionar los kypers y realizar tus pedidos.</p>                    
-                    <a class="btn btn-primary" href="{% url 'account_signup' %}">Eres Emprendedor unete a Kypershop</a>
+                </div>
+                <div class="col-lg-12 mb-5 mb-lg-5">                   
+                    <a class="btn btn-primary btn-lg" href="{% url 'account_signup' %}">Eres Emprendedor unete a Kypershop</a>
                 </div>
               </div>
               </br>
@@ -176,7 +178,10 @@
           <p class="h6 text-uppercase text-primary">Nuevos Emprendores</p>
           <h2 class="mb-5">Estos son los nuevos kypers que se han unido</h2>
           <div class="row">
-              <div class="col-lg-5 mx-auto">
+              <div class="col-lg-12 mb-5 mb-lg-5">                   
+                  <a class="btn btn-primary btn-lg" href="{% url 'account_signup' %}">Eres Emprendedor unete a Kypershop</a>
+              </div>
+              <div class="col-lg-5 col-md-10 col-sm-12 mx-auto">
                 <div id="container_markets" class="owl-carousel owl-theme testimonials-slider">
                 </div>
               </div>            
@@ -188,10 +193,11 @@
     <footer class="with-pattern-1 position-relative">
       <div class="container section-padding-y">
         <div class="row">
-          <div class="col-lg-3 mb-4 mb-lg-0"><img class="mb-4" src="{% static 'icon/apple-icon-120x120.png' %}" alt="" width="80">
+          <div class="col-lg-3 col-sm-12 mb-4 mb-lg-0">
+            {% comment %} <img class="mb-4" src="{% static 'icon/apple-icon-120x120.png' %}" alt="" width="70"> {% endcomment %}
             <p class="text-muted"></p>
           </div>
-          <div class="col-lg-2 mb-4 mb-lg-0">
+          <div class="col-lg-2 col-sm-4 col-6 mb-4 mb-lg-0">
             <h2 class="h5 mb-4">Acceso rapido</h2>
             <div class="d-flex">
               <ul class="list-unstyled d-inline-block mr-4 mb-0">
@@ -200,16 +206,16 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-2 mb-4 mb-lg-0">
+          <div class="col-lg-2 col-sm-4 col-6 mb-4 mb-lg-0">
             <h2 class="h5 mb-4">Kypers</h2>
             <div class="d-flex">
               <ul class="list-unstyled mr-4 mb-0">
-                <li class="mb-2"><a class="footer-link" href="{{ login_url }}">Iniciar Sesión </a></li>
+                <li class="mb-2"><a class="footer-link" href="/accounts/login/">Iniciar Sesión </a></li>
                 <li class="mb-2"><a class="footer-link" href="{% url 'account_signup' %}">Registrar Kyper</a></li>
               </ul>
             </div>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-5 col-sm-4 col-12">
             <h2 class="h5 mb-4">Contacto</h2>
             <ul class="list-unstyled mr-4 mb-3">
               <li class="mb-2 text-muted">Bogotá, Colombia </li>

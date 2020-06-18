@@ -2,11 +2,18 @@
 
 {% load static %}
 {% block extra_head %}    
-        
+{% comment %}         
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css" type="text/css" media="all" rel="stylesheet">
 <link type="text/css" media="all" rel="stylesheet" href="{% static 'kypershop/gis/ol3.css' %}">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
-<script type="text/javascript" src="{% static 'kypershop/gis/OLMapWidget.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script> {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 600px;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 
 {% endblock %}
 {% block body %}
@@ -182,11 +189,15 @@
                             <div class="form-row">                                
                                 <div class="form-group col-md-6">
                                     <label for="minimum_price">Precio Domicilio <small>Opcional - valor 0 sin cobro de domicilio para el cliente</small></label>
-                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="delivery_price" name="delivery_price" placeholder="Precio Minimo" value="0" pattern="[0-9]" required="required">
+                                    <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==6) return false;" 
+                                        class="bg-gray-100 form-control form-control-user" id="delivery_price" name="delivery_price" 
+                                        placeholder="Precio Minimo" pattern="[0-9]" required="required" maxlength="1000000" onkeydown="validateNumeric(event)">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="minimum_price">Precio Minimo por pedido</label>
-                                    <input type="number" class="bg-gray-100 form-control form-control-user" id="minimum_price" name="minimum_price" placeholder="Precio Minimo" pattern="[0-9]" required="required">
+                                    <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==6) return false;" 
+                                        class="bg-gray-100 form-control form-control-user" id="minimum_price" name="minimum_price" 
+                                        placeholder="Precio Minimo" pattern="[0-9]" required="required" maxlength="1000000" onkeydown="validateNumeric(event)">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -216,7 +227,9 @@
                             <br/>
                             <div class="form-row justify-content-md-center">
                                 <div class="form-group col-md-auto">
-                                    {{ form_location.as_p }}
+                                    <label for="location">Selecciona la ubicación de tu Kyper en el mapa - <small>Campo obligatorio</small></label>
+                                    <input type="hidden" id="location" name="location">
+                                    <div id="map" class="map"></div>
                                 </div>
                             </div>
                             <br/>
@@ -360,6 +373,7 @@
     </div>
 
     
+    
 </div>
 <!-- /.container-fluid -->
 
@@ -370,7 +384,63 @@
 
 <!--custom scripts for front markets -->
 <script src="{% static 'kypershop/web/front/js/main.js' %}"></script>
-    
+
+<script type="text/javascript">
+    var vectorSource = new ol.source.Vector(),
+        vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        }),
+        map = new ol.Map({
+            target: 'map',
+            layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }),
+            vectorLayer
+            ],
+            view: new ol.View({
+            center: ol.proj.fromLonLat([-74.05488966864571, 4.71026094566535]),
+            zoom: 10,
+            maxZoom: 16
+            })
+        });    
+
+    map.addControl(new ol.control.ZoomSlider());        
+
+    var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: '//openlayers.org/en/v3.8.2/examples/data/icon.png'
+        }),
+        text: new ol.style.Text({
+            font: '12px Calibri,sans-serif',
+            fill: new ol.style.Fill({ color: '#000' }),
+            stroke: new ol.style.Stroke({
+                color: '#fff', width: 2
+            }),
+            text: 'Some text'
+        })
+    });
+    map.on('click', function (evt) {
+        var coord = ol.proj.transform(evt.coordinate,'EPSG:3857', 'EPSG:4326');
+        var lon = coord[0];
+        var lat = coord[1];
+
+        vectorSource.clear();
+
+        $('#location').val("POINT(" + lon + " " + lat + ")");   
+
+        var feature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+        });
+
+        vectorSource.addFeature(feature);
+        
+    });
+    </script>
 {% endblock %}
 
            

@@ -18,14 +18,18 @@ admin.site.register(Schedule)
 
 @admin.register(Market)
 class MarketAdmin(OSMGeoAdmin):
-    list_display = ('code','name', 'addresses' , 'longitude', 'latitude', 'creation_date', 'status', 'telephone_first')
+    list_display = ('code','name', 'addresses' , 'longitude', 'latitude', 'city','creation_date', 'status', 'telephone_first')
     search_fields = ['name','addresses', 'status']
     ordering = ('-pk',)  
     
-admin.site.register(Product)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('title', 'price', 'available', 'status', 'creation_date', 'modification_date', 'market')    
+    ordering = ('-creation_date',) 
 
 @admin.register(Client)
 class ClientAdmin(OSMGeoAdmin):
     list_display = ('UUID', 'longitude', 'latitude', 'status', 'creation_date')    
+    ordering = ('-creation_date',) 
     
     

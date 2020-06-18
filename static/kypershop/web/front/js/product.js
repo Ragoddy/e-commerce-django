@@ -70,7 +70,8 @@ function dateProductFormatter(value, row) {
 }
 
 
-$(document).ready(function() {        
+
+$(document).ready(function() {            
 
     $("#btn_send_status").click(function(){
         // var $token = $('#token').val();

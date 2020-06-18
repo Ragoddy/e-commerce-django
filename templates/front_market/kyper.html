@@ -21,7 +21,7 @@
                         {% csrf_token %}  
                         <div class="form-row justify-content-md-center">
                             <div class="form-group col-md-6">
-                                {% if market.image.url %}
+                                {% if market.image %}
                                     <img class="card-img-top rounded img-fluid image_kyper_home" src="{{ market.image.url }}">
                                 {% endif%}
                             </div>                            

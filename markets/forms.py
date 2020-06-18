@@ -19,10 +19,5 @@ class MarketForm(forms.Form):
     minimum_price = forms.FloatField()
     file = forms.ImageField(required=False) 
     delivery_price = forms.FloatField()
-    location = forms.PointField(required=True)
+    location = forms.PointField(label='Selecciona la ubicación del comercio en el mapa', required=True)
     category = forms.IntegerField()
-
-class MarketLocationForm(forms.Form):
-    location = forms.PointField(label='Selecciona la ubicación del comercio en el mapa',srid=4326, required=True,
-                    widget=forms.OSMWidget(attrs={'default_zoom': 6, 'default_lat': 4.71026094566535 , 
-                            'default_lon': -74.05488966864571, 'map_width': 800, 'map_height': 300}))

@@ -15,7 +15,7 @@ import json
 from markets.models import Market, Product, Category, Telephone
 from orders.models import Order, ProductByOrder
 
-from markets.forms import ProductForm, MarketForm, MarketLocationForm
+from markets.forms import ProductForm, MarketForm
 from orders.forms import OrderForm
 
 def ReturnMarket(request):
@@ -49,8 +49,7 @@ class HomeView(View):
         market_id = ReturnMarket(request)   
         token = ReturnToken(request)        
         name = None
-        
-        form_location = MarketLocationForm()
+                
         categories = Category.objects.all().order_by('sorting')
         
         if market_id > 0:
@@ -69,11 +68,8 @@ class HomeView(View):
         token = ReturnToken(request)         
         form = MarketForm(request.POST, request.FILES)   
         file = None
-
-        try:        
-            if "file" in request.FILES:
-                print("true")
-                print(request.FILES)
+        
+        try:                  
             
             if form.is_valid():         
                 
@@ -90,19 +86,18 @@ class HomeView(View):
                 market.onwer = request.user
                 market.save()        
                 market.categories.add(category)   
-                 
+                
                 """ Create Phone """
                 phone = Telephone()
                 phone.type_telephone = 2
                 phone.number = form.cleaned_data['number']
                 phone.first = 1
                 phone.market = market
+                phone.save()
             
                 return HttpResponseRedirect("/web/markets/products/")
             
             else:
-                
-                form_location = MarketLocationForm()
                 categories = Category.objects.all().order_by('sorting')
                 return render(request, 'front_market/home.html', locals())
             

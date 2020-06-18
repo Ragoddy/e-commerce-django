@@ -76,7 +76,7 @@ class MarketNewsLocationListAPIView(APIView):
             serializer_category = CategorySerializer(queryset_category, many=True, context={"request":request})        
             
             queryset_products = Product.objects.filter(market=market.id, status=1).order_by('-creation_date')
-            serializer_products = ProductSerializer(queryset_products, many=True)      
+            serializer_products = ProductSerializer(queryset_products, many=True,  context={"request":request})      
             
             image_url = None
             if market.image:
